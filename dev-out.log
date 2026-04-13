@@ -1,0 +1,38 @@
+
+> augment-skills-academy@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.5:3000
+✓ Ready in 1766ms
+Creating turbopack project {
+  dir: 'D:\\AugmentSkillAcademy\\augment-skills-academy',
+  testMode: true
+}
+
+ GET / 500 in 3.1s (next.js: 1222ms, application-code: 1863ms)
+ GET / 500 in 413ms (next.js: 23ms, application-code: 391ms)
+ HEAD / 200 in 2.8s (next.js: 558ms, application-code: 2.2s)
+ GET / 200 in 1653ms (next.js: 67ms, application-code: 1586ms)
+ GET / 200 in 184ms (next.js: 130ms, application-code: 54ms)
+ GET / 200 in 317ms (next.js: 19ms, application-code: 298ms)
+○ Compiling /blog ...
+ GET /about 200 in 3.7s (next.js: 2.9s, application-code: 799ms)
+ GET /blog 200 in 7.3s (next.js: 5.8s, application-code: 1548ms)
+ GET /blog 200 in 484ms (next.js: 134ms, application-code: 350ms)
+○ Compiling /contact ...
+ GET /contact 200 in 4.4s (next.js: 4.3s, application-code: 174ms)
+ GET /contact 200 in 153ms (next.js: 26ms, application-code: 127ms)
+ GET /blog 200 in 202ms (next.js: 19ms, application-code: 183ms)
+ GET /contact 200 in 151ms (next.js: 15ms, application-code: 136ms)
+ GET /courses 200 in 3.3s (next.js: 3.0s, application-code: 268ms)
+ GET / 200 in 229ms (next.js: 14ms, application-code: 215ms)
+ GET /courses 200 in 181ms (next.js: 12ms, application-code: 169ms)
+ GET /courses/ai-product-systems 200 in 4.8s (next.js: 4.6s, application-code: 220ms)
+○ Compiling /signup ...
+ GET /signup 200 in 4.4s (next.js: 3.9s, application-code: 540ms)
+ GET /signup 200 in 384ms (next.js: 31ms, application-code: 352ms)
+ POST /signup 200 in 150ms (next.js: 16ms, application-code: 134ms)
+  └─ ƒ signInWithGoogleAction() in 21ms app/(auth)/actions.ts
+ GET / 200 in 207ms (next.js: 12ms, application-code: 195ms)

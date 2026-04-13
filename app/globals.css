@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f4ee;
+  --foreground: #18181b;
+  --surface: rgba(255, 255, 255, 0.74);
+  --surface-strong: rgba(255, 255, 255, 0.92);
+  --border: rgba(39, 39, 42, 0.08);
+  --muted: #52525b;
+  --accent: #5b4df7;
+  --accent-2: #2cb1a3;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --font-sans: var(--font-inter);
+}
+
+html.dark {
+  --background: #080912;
+  --foreground: #f5f7ff;
+  --surface: rgba(10, 14, 28, 0.76);
+  --surface-strong: rgba(13, 18, 35, 0.9);
+  --border: rgba(161, 161, 170, 0.16);
+  --muted: #b4b4c5;
+  --accent: #8b7cff;
+  --accent-2: #37d7c4;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  background-image:
+    radial-gradient(circle at top left, rgba(91, 77, 247, 0.18), transparent 34%),
+    radial-gradient(circle at top right, rgba(44, 177, 163, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 45%);
+  font-family: var(--font-inter), sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(circle at center, black, transparent 85%);
+  opacity: 0.4;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.glass-panel {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.1);
+}
+
+.section-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  backdrop-filter: blur(20px);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.prose-academy h2 {
+  margin-top: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.prose-academy p,
+.prose-academy li {
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
+}
+
+.prose-academy p {
+  margin-top: 1rem;
+  line-height: 1.9;
+}
+
+.prose-academy ul {
+  margin-top: 1rem;
+  padding-left: 1.2rem;
+}

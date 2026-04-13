@@ -1,0 +1,30 @@
+⨯ Error: Invalid environment variable "NEXT_PUBLIC_SUPABASE_URL": Invalid input: expected string, received undefined
+    at getEnvValue (lib\env.ts:32:11)
+    at Object.get (lib\env.ts:48:12)
+    at createSupabaseServerClient (lib\supabase\server.ts:10:9)
+    at async listPublishedCourses (lib\courses.ts:179:20)
+    at async HomePage (app\(public)\page.tsx:17:19)
+  30 |   const result = schemaShape[key].safeParse(process.env[key]);
+  31 |   if (!result.success) {
+> 32 |     throw new Error(`Invalid environment variable "${key}": ${result.error.issues[0]?.mess...
+     |           ^
+  33 |   }
+  34 |
+  35 |   return result.data; {
+  digest: '1740251398'
+}
+⨯ Error: Invalid environment variable "NEXT_PUBLIC_SUPABASE_URL": Invalid input: expected string, received undefined
+    at getEnvValue (lib\env.ts:32:11)
+    at Object.get (lib\env.ts:48:12)
+    at createSupabaseServerClient (lib\supabase\server.ts:10:9)
+    at async listPublishedCourses (lib\courses.ts:179:20)
+    at async HomePage (app\(public)\page.tsx:17:19)
+  30 |   const result = schemaShape[key].safeParse(process.env[key]);
+  31 |   if (!result.success) {
+> 32 |     throw new Error(`Invalid environment variable "${key}": ${result.error.issues[0]?.mess...
+     |           ^
+  33 |   }
+  34 |
+  35 |   return result.data; {
+  digest: '1740251398'
+}

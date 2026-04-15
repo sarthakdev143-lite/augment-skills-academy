@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
-import { Manrope, Sora, Geist } from "next/font/google";
+import { Geist, Manrope, Outfit } from "next/font/google";
 import { Providers } from "@/components/providers";
-import "./globals.css";
 import { cn } from "@/lib/utils";
+import "./globals.css";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
 });
 
-const sora = Sora({
-  variable: "--font-sora",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -43,7 +46,14 @@ export default function RootLayout({
       lang="en"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={cn("h-full", "antialiased", manrope.variable, sora.variable, "font-sans", geist.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        "font-sans",
+        geist.variable,
+        manrope.variable,
+        outfit.variable,
+      )}
     >
       <body className="min-h-full bg-background text-foreground">
         <Providers>{children}</Providers>

@@ -2,6 +2,21 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { AppRole } from "@/types";
 
+export function getSafeRedirectPath(
+  next: string | null | undefined,
+  fallback = "/dashboard",
+) {
+  if (!next) {
+    return fallback;
+  }
+
+  if (!next.startsWith("/") || next.startsWith("//") || next.includes("\\") || next.includes("://")) {
+    return fallback;
+  }
+
+  return next;
+}
+
 export async function getCurrentUser() {
   const supabase = await createSupabaseServerClient();
   const {

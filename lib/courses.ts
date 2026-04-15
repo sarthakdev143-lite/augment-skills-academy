@@ -2,7 +2,6 @@ import { cache } from "react";
 import { isSupabaseConfigured } from "@/lib/env";
 import { createMuxPlaybackToken } from "@/lib/mux/tokens";
 import {
-  fallbackAdminOverview,
   fallbackCourseDetails,
   fallbackCourses,
   fallbackDashboardOverview,
@@ -11,10 +10,12 @@ import {
 } from "@/lib/demo-data";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type {
+  AdminCourseOverview,
   AdminOverview,
   Bookmark,
   Certificate,
   CertificateVerificationRecord,
+  Coupon,
   Course,
   CourseDetail,
   CourseLevel,
@@ -30,7 +31,9 @@ import type {
   LessonProgress,
   Notification,
   NotificationFeedItem,
+  PaymentRecord,
   Profile,
+  RevenuePoint,
   Review,
   ReviewWithAuthor,
 } from "@/types";
@@ -127,6 +130,71 @@ function buildFallbackDashboardOverview(studentName: string | null) {
   return {
     ...fallbackDashboardOverview,
     studentName: studentName || fallbackDashboardOverview.studentName,
+  };
+}
+
+function getMonthKey(date: Date) {
+  return `${date.getFullYear()}-${date.getMonth()}`;
+}
+
+function buildAdminRevenueSeries(
+  payments: PaymentRecord[],
+  enrollments: Enrollment[],
+  months = 4,
+) {
+  const monthFormatter = new Intl.DateTimeFormat("en-IN", { month: "short" });
+  const currentMonth = new Date();
+  currentMonth.setDate(1);
+  currentMonth.setHours(0, 0, 0, 0);
+
+  const buckets = new Map<string, RevenuePoint>();
+
+  for (let offset = months - 1; offset >= 0; offset -= 1) {
+    const bucketDate = new Date(currentMonth);
+    bucketDate.setMonth(currentMonth.getMonth() - offset);
+    buckets.set(getMonthKey(bucketDate), {
+      label: monthFormatter.format(bucketDate),
+      revenue: 0,
+      enrollments: 0,
+    });
+  }
+
+  payments.forEach((payment) => {
+    const paymentDate = new Date(payment.created_at);
+    const bucket = buckets.get(getMonthKey(paymentDate));
+
+    if (!bucket || Number.isNaN(paymentDate.getTime())) {
+      return;
+    }
+
+    bucket.revenue += payment.amount_cents / 100;
+  });
+
+  enrollments.forEach((enrollment) => {
+    const enrollmentDate = new Date(enrollment.created_at);
+    const bucket = buckets.get(getMonthKey(enrollmentDate));
+
+    if (!bucket || Number.isNaN(enrollmentDate.getTime())) {
+      return;
+    }
+
+    bucket.enrollments += 1;
+  });
+
+  return Array.from(buckets.values());
+}
+
+function buildEmptyAdminOverview(): AdminOverview {
+  return {
+    totalRevenue: 0,
+    totalEnrollments: 0,
+    activeStudents: 0,
+    activeSubscriptions: 0,
+    pendingReviews: 0,
+    courses: [],
+    recentReviews: [],
+    coupons: [],
+    revenueSeries: buildAdminRevenueSeries([], []),
   };
 }
 
@@ -562,45 +630,81 @@ export async function getCertificateVerificationRecord(id: string) {
 }
 
 export async function getAdminOverview() {
+  const emptyOverview = buildEmptyAdminOverview();
+
   if (!isSupabaseConfigured()) {
-    return fallbackAdminOverview;
+    return emptyOverview;
   }
 
   const supabase = await createSupabaseServerClient();
-  const [{ data: paymentData }, { data: enrollmentData }, { data: reviewData }, { data: couponData }] =
-    await Promise.all([
-      supabase.from("payments").select("*"),
-      supabase.from("enrollments").select("*"),
-      supabase.from("reviews").select("*").order("created_at", { ascending: false }).limit(5),
-      supabase.from("coupons").select("*").order("active", { ascending: false }),
-    ]);
+  const [
+    { data: paymentData },
+    { data: enrollmentData },
+    { data: reviewData },
+    { count: pendingReviewCount },
+    { data: couponData },
+    { data: courseData },
+  ] = await Promise.all([
+    supabase.from("payments").select("*").order("created_at", { ascending: false }),
+    supabase.from("enrollments").select("*"),
+    supabase.from("reviews").select("*").order("created_at", { ascending: false }).limit(5),
+    supabase.from("reviews").select("id", { count: "exact", head: true }).eq("approved", false),
+    supabase.from("coupons").select("*").order("active", { ascending: false }),
+    supabase.from("courses").select("*").order("created_at", { ascending: false }),
+  ]);
 
-  const courses = await listPublishedCourses();
-
-  if (!paymentData && !enrollmentData) {
-    return fallbackAdminOverview;
-  }
-
-  const payments = (paymentData ?? []) as Array<{ amount_cents: number; status: string }>;
+  const payments = (paymentData ?? []) as PaymentRecord[];
   const enrollments = (enrollmentData ?? []) as Enrollment[];
   const reviews = (reviewData ?? []) as Review[];
-  const coupons = (couponData ?? []) as AdminOverview["coupons"];
+  const coupons = (couponData ?? []) as Coupon[];
+  const courses = (courseData ?? []) as Course[];
+  const courseIds = courses.map((course) => course.id);
+  const { modules, lessons, reviews: courseReviews, profiles } = await listCourseRelatedData(courseIds);
+
+  const enrollmentCountByCourseId = new Map<string, number>();
+  enrollments.forEach((enrollment) => {
+    enrollmentCountByCourseId.set(
+      enrollment.course_id,
+      (enrollmentCountByCourseId.get(enrollment.course_id) ?? 0) + 1,
+    );
+  });
+
+  const reviewAuthorIds = [...new Set(reviews.map((review) => review.user_id))];
+  const { data: reviewAuthorData } = reviewAuthorIds.length
+    ? await supabase.from("profiles").select("*").in("id", reviewAuthorIds)
+    : { data: [] };
+  const reviewAuthors = (reviewAuthorData ?? []) as Profile[];
+
+  const adminCourses = courses.map<AdminCourseOverview>((course) => ({
+    ...buildCourseSummary(
+      course,
+      modules,
+      lessons,
+      courseReviews,
+      profiles.find((profile) => profile.id === course.instructor_id) ?? null,
+    ),
+    enrollment_count: enrollmentCountByCourseId.get(course.id) ?? 0,
+  }));
 
   return {
     totalRevenue: payments.reduce((sum, payment) => sum + payment.amount_cents, 0) / 100,
     totalEnrollments: enrollments.length,
     activeStudents: new Set(enrollments.map((enrollment) => enrollment.user_id)).size,
     activeSubscriptions: payments.filter((payment) =>
-      payment.status.includes("subscription"),
+      payment.status.toLowerCase().includes("subscription"),
     ).length,
-    pendingReviews: reviews.filter((review) => !review.approved).length,
-    recentCourses: courses.slice(0, 4),
-    recentReviews: reviews.map<ReviewWithAuthor>((review) => ({
-      ...review,
-      author_name: "Academy learner",
-      author_role: "student",
-    })),
-    coupons: coupons.length ? coupons : fallbackAdminOverview.coupons,
-    revenueSeries: fallbackAdminOverview.revenueSeries,
+    pendingReviews: pendingReviewCount ?? 0,
+    courses: adminCourses,
+    recentReviews: reviews.map<ReviewWithAuthor>((review) => {
+      const author = reviewAuthors.find((profile) => profile.id === review.user_id);
+
+      return {
+        ...review,
+        author_name: author?.full_name ?? "Academy learner",
+        author_role: author?.role ?? "student",
+      };
+    }),
+    coupons,
+    revenueSeries: buildAdminRevenueSeries(payments, enrollments),
   } satisfies AdminOverview;
 }

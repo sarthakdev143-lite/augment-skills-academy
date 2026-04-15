@@ -19,7 +19,11 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export function SignUpForm() {
+type SignUpFormProps = {
+  next?: string;
+};
+
+export function SignUpForm({ next = "/dashboard" }: SignUpFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [googlePending, startGoogleTransition] = useTransition();
@@ -93,7 +97,7 @@ export function SignUpForm() {
             disabled={googlePending}
             onClick={() =>
               startGoogleTransition(async () => {
-                const result = await signInWithGoogleAction();
+                const result = await signInWithGoogleAction({ next });
                 if (result.redirectTo) {
                   window.location.href = result.redirectTo;
                 } else {

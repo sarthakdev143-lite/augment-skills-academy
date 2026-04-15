@@ -1,33 +1,51 @@
 import Link from "next/link";
-import { logoCloud } from "@/lib/demo-data";
+import { logoCloud, marketingStats } from "@/lib/demo-data";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-20 border-t border-border/80 bg-[#132238] text-white">
+    <footer className="mt-20 border-t border-white/10 bg-[#0f1b2e] text-white">
       <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="section-shell rounded-[36px] border-white/10 bg-white/6 p-8 text-foreground lg:flex lg:items-center lg:justify-between lg:gap-8">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted">
-              Start your next chapter
-            </p>
-            <h2 className="mt-4 max-w-xl text-3xl font-semibold text-balance">
-              Join a mentor-led path built to turn learning into visible career momentum.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-muted">
-              Choose a specialization, build applied projects, and get the kind
-              of structure that keeps ambitious learners moving.
-            </p>
+        <div className="ink-panel rounded-[40px] p-8 lg:p-10">
+          <div className="academy-mesh opacity-40" />
+          <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/58">
+                Start your next chapter
+              </p>
+              <h2 className="mt-4 max-w-xl text-3xl font-semibold text-balance lg:text-4xl">
+                Join a mentor-led path built to turn learning into visible career momentum.
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72">
+                Choose a specialization, build applied projects, and get the
+                structure ambitious learners need to keep moving.
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              {marketingStats.slice(0, 3).map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-[28px] border border-white/10 bg-white/8 px-4 py-4"
+                >
+                  <p className="text-2xl font-semibold">{item.value}</p>
+                  <p className="mt-2 text-xs font-medium uppercase tracking-[0.2em] text-white/56">
+                    {item.label}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="mt-6 flex flex-wrap gap-3 lg:mt-0">
+
+          <div className="relative mt-8 flex flex-wrap gap-3">
             <Link
               href="/signup"
-              className="inline-flex rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white"
+              className="inline-flex rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#132238]"
             >
               Apply now
             </Link>
             <Link
               href="/contact"
-              className="inline-flex rounded-full border border-border px-5 py-3 text-sm font-semibold text-foreground"
+              className="inline-flex rounded-full border border-white/14 bg-white/8 px-5 py-3 text-sm font-semibold text-white"
             >
               Talk to an advisor
             </Link>

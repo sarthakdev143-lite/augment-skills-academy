@@ -1,9 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { WelcomeEmail } from "@/emails/welcome-email";
+import { getSafeRedirectPath } from "@/lib/auth";
 import { env } from "@/lib/env";
 import { getResendClient } from "@/lib/resend/client";
 import { createSupabaseAdminClient, createSupabaseServerClient } from "@/lib/supabase/server";
@@ -22,6 +24,16 @@ const emailOnlySchema = z.object({
   email: z.string().email("Enter a valid email address."),
 });
 
+const passwordResetSchema = z
+  .object({
+    password: z.string().min(8, "Password must be at least 8 characters."),
+    confirmPassword: z.string().min(8, "Password must be at least 8 characters."),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match.",
+    path: ["confirmPassword"],
+  });
+
 function validationError(
   message: string,
   fieldErrors: Record<string, string[] | undefined>,
@@ -33,10 +45,40 @@ function validationError(
   };
 }
 
+async function getAppUrl() {
+  const headerStore = await headers();
+  const origin = headerStore.get("origin");
+
+  if (origin) {
+    return origin;
+  }
+
+  const forwardedHost = headerStore.get("x-forwarded-host");
+  const host = forwardedHost ?? headerStore.get("host");
+
+  if (host) {
+    const protocol =
+      headerStore.get("x-forwarded-proto") ??
+      (env.NEXT_PUBLIC_APP_URL.startsWith("https://") ? "https" : "http");
+
+    return `${protocol}://${host}`;
+  }
+
+  return env.NEXT_PUBLIC_APP_URL;
+}
+
+async function buildAuthCallbackUrl(next: string) {
+  const url = new URL("/auth/callback", await getAppUrl());
+  url.searchParams.set("next", getSafeRedirectPath(next));
+  return url.toString();
+}
+
 export async function signInAction(input: {
   email: string;
   password: string;
+  next?: string | null;
 }): Promise<ServerActionState> {
+  const nextPath = getSafeRedirectPath(input.next);
   const parsed = signInSchema.safeParse(input);
 
   if (!parsed.success) {
@@ -58,18 +100,14 @@ export async function signInAction(input: {
     }
 
     revalidatePath("/", "layout");
-
-    return {
-      status: "success",
-      message: "Welcome back.",
-      redirectTo: "/dashboard",
-    };
   } catch (error) {
     return {
       status: "error",
       message: error instanceof Error ? error.message : "Unable to sign in.",
     };
   }
+
+  redirect(nextPath);
 }
 
 export async function signUpAction(input: {
@@ -92,7 +130,7 @@ export async function signUpAction(input: {
       email: parsed.data.email,
       password: parsed.data.password,
       options: {
-        emailRedirectTo: `${env.NEXT_PUBLIC_APP_URL}/auth/callback?next=/dashboard`,
+        emailRedirectTo: await buildAuthCallbackUrl("/dashboard"),
         data: {
           full_name: parsed.data.fullName,
           role: "student",
@@ -146,6 +184,7 @@ export async function signUpAction(input: {
 
 export async function requestMagicLinkAction(input: {
   email: string;
+  next?: string | null;
 }): Promise<ServerActionState> {
   const parsed = emailOnlySchema.safeParse(input);
 
@@ -161,7 +200,7 @@ export async function requestMagicLinkAction(input: {
     const { error } = await supabase.auth.signInWithOtp({
       email: parsed.data.email,
       options: {
-        emailRedirectTo: `${env.NEXT_PUBLIC_APP_URL}/auth/callback?next=/dashboard`,
+        emailRedirectTo: await buildAuthCallbackUrl(input.next ?? "/dashboard"),
       },
     });
 
@@ -199,7 +238,7 @@ export async function requestPasswordResetAction(input: {
   try {
     const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-      redirectTo: `${env.NEXT_PUBLIC_APP_URL}/auth/callback?next=/reset-password`,
+      redirectTo: await buildAuthCallbackUrl("/reset-password?mode=recovery"),
     });
 
     if (error) {
@@ -222,13 +261,55 @@ export async function requestPasswordResetAction(input: {
   }
 }
 
-export async function signInWithGoogleAction(): Promise<ServerActionState> {
+export async function updatePasswordAction(input: {
+  password: string;
+  confirmPassword: string;
+  next?: string | null;
+}): Promise<ServerActionState> {
+  const nextPath = getSafeRedirectPath(input.next);
+  const parsed = passwordResetSchema.safeParse(input);
+
+  if (!parsed.success) {
+    return validationError(
+      "Please correct the highlighted password fields.",
+      parsed.error.flatten().fieldErrors,
+    );
+  }
+
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { error } = await supabase.auth.updateUser({
+      password: parsed.data.password,
+    });
+
+    if (error) {
+      return {
+        status: "error",
+        message: error.message,
+      };
+    }
+
+    revalidatePath("/", "layout");
+  } catch (error) {
+    return {
+      status: "error",
+      message:
+        error instanceof Error ? error.message : "Unable to update your password.",
+    };
+  }
+
+  redirect(nextPath);
+}
+
+export async function signInWithGoogleAction(input?: {
+  next?: string | null;
+}): Promise<ServerActionState> {
   try {
     const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${env.NEXT_PUBLIC_APP_URL}/auth/callback?next=/dashboard`,
+        redirectTo: await buildAuthCallbackUrl(input?.next ?? "/dashboard"),
       },
     });
 

@@ -1,5 +1,4 @@
 import type {
-  AdminOverview,
   BlogPostPreview,
   CourseDetail,
   CourseSummary,
@@ -673,37 +672,4 @@ export const fallbackDashboardOverview: DashboardOverview = {
       href: "/certificates/cert_demo_0001",
     },
   ],
-};
-
-export const fallbackAdminOverview: AdminOverview = {
-  totalRevenue: 110500,
-  totalEnrollments: 698,
-  activeStudents: 482,
-  activeSubscriptions: 164,
-  pendingReviews: 7,
-  recentCourses: fallbackCourses,
-  recentReviews: fallbackCourseDetails.flatMap((course) => course.reviews).slice(0, 3),
-  coupons: [
-    {
-      id: "coupon-demo-1",
-      code: "WELCOME20",
-      discount_type: "percent",
-      discount_value: 20,
-      max_uses: 500,
-      used_count: 128,
-      expires_at: "2026-06-01T00:00:00.000Z",
-      active: true,
-    },
-    {
-      id: "coupon-demo-2",
-      code: "ANNUAL1000",
-      discount_type: "fixed",
-      discount_value: 1000,
-      max_uses: 120,
-      used_count: 44,
-      expires_at: "2026-07-01T00:00:00.000Z",
-      active: true,
-    },
-  ],
-  revenueSeries: fallbackRevenueSeries,
 };

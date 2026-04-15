@@ -229,13 +229,17 @@ export type RevenuePoint = {
   enrollments: number;
 };
 
+export type AdminCourseOverview = CourseSummary & {
+  enrollment_count: number;
+};
+
 export type AdminOverview = {
   totalRevenue: number;
   totalEnrollments: number;
   activeStudents: number;
   activeSubscriptions: number;
   pendingReviews: number;
-  recentCourses: CourseSummary[];
+  courses: AdminCourseOverview[];
   recentReviews: ReviewWithAuthor[];
   coupons: Coupon[];
   revenueSeries: RevenuePoint[];

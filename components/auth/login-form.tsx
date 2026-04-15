@@ -24,12 +24,24 @@ type FormValues = z.infer<typeof schema>;
 
 const idleState: ServerActionState = { status: "idle" };
 
-export function LoginForm() {
+type LoginFormProps = {
+  next?: string;
+  initialMessage?: string;
+};
+
+export function LoginForm({ next = "/dashboard", initialMessage }: LoginFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [magicPending, startMagicTransition] = useTransition();
   const [googlePending, startGoogleTransition] = useTransition();
-  const [state, setState] = React.useState<ServerActionState>(idleState);
+  const [state, setState] = React.useState<ServerActionState>(
+    initialMessage
+      ? {
+          status: "error",
+          message: initialMessage,
+        }
+      : idleState,
+  );
   const [magicState, setMagicState] = React.useState<ServerActionState>(idleState);
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -41,7 +53,10 @@ export function LoginForm() {
 
   const onSubmit = form.handleSubmit((values) => {
     startTransition(async () => {
-      const result = await signInAction(values);
+      const result = await signInAction({
+        ...values,
+        next,
+      });
       setState(result);
       if (result.redirectTo) {
         router.push(result.redirectTo);
@@ -91,6 +106,7 @@ export function LoginForm() {
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <Button
+            type="button"
             variant="secondary"
             className="w-full"
             disabled={magicPending}
@@ -98,6 +114,7 @@ export function LoginForm() {
               startMagicTransition(async () => {
                 const result = await requestMagicLinkAction({
                   email: form.getValues("email"),
+                  next,
                 });
                 setMagicState(result);
               })
@@ -106,12 +123,13 @@ export function LoginForm() {
             {magicPending ? "Sending..." : "Send magic link"}
           </Button>
           <Button
+            type="button"
             variant="secondary"
             className="w-full"
             disabled={googlePending}
             onClick={() =>
               startGoogleTransition(async () => {
-                const result = await signInWithGoogleAction();
+                const result = await signInWithGoogleAction({ next });
                 if (result.redirectTo) {
                   window.location.href = result.redirectTo;
                 } else {

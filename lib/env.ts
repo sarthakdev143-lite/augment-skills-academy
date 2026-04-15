@@ -5,12 +5,13 @@ const envSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
-  STRIPE_SECRET_KEY: z.string().min(1),
-  STRIPE_WEBHOOK_SECRET: z.string().min(1),
-  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
-  STRIPE_COURSE_PRICE_ID: z.string().min(1).optional(),
-  STRIPE_MONTHLY_PRICE_ID: z.string().min(1).optional(),
-  STRIPE_ANNUAL_PRICE_ID: z.string().min(1).optional(),
+  RAZORPAY_KEY_ID: z.string().min(1),
+  RAZORPAY_KEY_SECRET: z.string().min(1),
+  RAZORPAY_WEBHOOK_SECRET: z.string().min(1),
+  NEXT_PUBLIC_RAZORPAY_KEY_ID: z.string().min(1),
+  RAZORPAY_COURSE_PLAN_ID: z.string().min(1).optional(),
+  RAZORPAY_MONTHLY_PLAN_ID: z.string().min(1).optional(),
+  RAZORPAY_ANNUAL_PLAN_ID: z.string().min(1).optional(),
   MUX_TOKEN_ID: z.string().min(1),
   MUX_TOKEN_SECRET: z.string().min(1),
   MUX_SIGNING_KEY_ID: z.string().min(1).optional(),
@@ -56,11 +57,12 @@ export function isSupabaseConfigured() {
   );
 }
 
-export function isStripeConfigured() {
+export function isRazorpayConfigured() {
   return Boolean(
-    process.env.STRIPE_SECRET_KEY &&
-      process.env.STRIPE_WEBHOOK_SECRET &&
-      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    process.env.RAZORPAY_KEY_ID &&
+      process.env.RAZORPAY_KEY_SECRET &&
+      process.env.RAZORPAY_WEBHOOK_SECRET &&
+      process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
   );
 }
 

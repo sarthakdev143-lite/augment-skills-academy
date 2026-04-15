@@ -1,6 +1,6 @@
 # Augment Skills Academy
 
-Production-ready course platform starter built with Next.js App Router, Supabase, Stripe, Mux, Resend, React Email, and React-PDF.
+Production-ready course platform starter built with Next.js App Router, Supabase, Razorpay, Mux, Resend, React Email, and React-PDF.
 
 ## What is included
 
@@ -10,14 +10,14 @@ Production-ready course platform starter built with Next.js App Router, Supabase
 - Student dashboard, course player shell, notifications API, and certificate verification page
 - Admin overview with revenue, enrollments, reviews, and coupon snapshots
 - Supabase SQL schema and seed files
-- Stripe and Mux webhook route handlers
+- Razorpay and Mux webhook route handlers
 
 ## Stack
 
 - Next.js 16 App Router with Server Components and Server Actions
 - Tailwind CSS v4 and reusable UI primitives in `components/ui`
 - Supabase for PostgreSQL, Auth, and Storage integration points
-- Stripe for checkout and billing webhooks
+- Razorpay for checkout and billing webhooks
 - Mux for uploads and signed playback token plumbing
 - Resend + React Email for transactional email
 - React Hook Form + Zod for client/server form validation
@@ -43,18 +43,15 @@ Production-ready course platform starter built with Next.js App Router, Supabase
 - The app uses the SSR server client in `lib/supabase/server.ts` and request-syncing logic in `lib/supabase/middleware.ts`.
 - The `auth` callback route exchanges OAuth and magic-link codes at `/auth/callback`.
 
-## Stripe setup
+## Razorpay setup
 
 1. Create products and prices for:
    - one-time course purchase
    - monthly all-access subscription
    - annual all-access subscription
-2. Add the resulting price IDs to `.env.local`.
-3. Forward Stripe webhooks to `http://localhost:3000/api/stripe/webhook`.
-4. Make sure the following events are enabled:
-   - `checkout.session.completed`
-   - `invoice.paid`
-   - `customer.subscription.deleted`
+2. Add the resulting plan IDs to `.env.local`.
+3. Forward Razorpay webhooks to `http://localhost:3000/api/razorpay/webhook`.
+4. Make sure payment and subscription events are enabled for your use case.
 
 ## Mux setup
 
@@ -79,7 +76,7 @@ Production-ready course platform starter built with Next.js App Router, Supabase
 
 1. Import the repo into Vercel.
 2. Set all environment variables from `.env.example`.
-3. Update Supabase, Stripe, Google OAuth, and Mux callback/webhook URLs to the production domain.
+3. Update Supabase, Razorpay, Google OAuth, and Mux callback/webhook URLs to the production domain.
 4. Deploy with `next build`.
 
 ## Project structure

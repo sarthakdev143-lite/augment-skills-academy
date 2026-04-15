@@ -10,7 +10,7 @@ TECH STACK:
   - Supabase Auth (email/password + Google OAuth + magic link)
   - Supabase Storage for thumbnails, PDFs, and attachments
 - Video hosting: Mux (upload, stream, signed playback URLs)
-- Payments: Stripe (one-time course purchase + monthly/annual all-access subscription)
+- Payments: Razorpay (one-time course purchase + monthly/annual all-access subscription)
 - Email: Resend with React Email templates
 - Certificate generation: React-PDF (@react-pdf/renderer)
 - Form handling: React Hook Form + Zod validation
@@ -83,11 +83,11 @@ PAGES & FEATURES:
    - Certificate download on 100% completion (generated with React-PDF, unique ID stored in DB)
    - Bookmarks
 
-4. PAYMENTS (Stripe)
+4. PAYMENTS (Razorpay)
    - Buy individual course (one-time)
    - All-access subscription (monthly + annual with discount)
-   - Stripe Checkout session + webhook to unlock course on payment success
-   - Subscription management portal (Stripe Customer Portal)
+   - Razorpay Checkout session + webhook to unlock course on payment success
+   - Subscription management portal (Razorpay)
    - Coupon / promo code support
    - Purchase receipt email via Resend
 
@@ -147,7 +147,7 @@ FOLDER STRUCTURE:
   /(auth)           — login, signup, reset-password
   /dashboard        — student dashboard, player, certificates
   /admin            — admin portal
-  /api              — Stripe webhook, Mux webhook
+  /api              — Razorpay webhook, Mux webhook
 /components
   /ui               — shadcn/ui base components
   /course           — course card, curriculum, player
@@ -155,7 +155,7 @@ FOLDER STRUCTURE:
   /admin            — data tables, charts
 /lib
   /supabase         — client.ts, server.ts, middleware.ts
-  /stripe           — client.ts, webhooks.ts
+  /razorpay         — client.ts, webhooks.ts
   /mux              — client.ts, upload.ts, tokens.ts
   /resend           — client.ts, email templates
   /pdf              — certificate.tsx (React-PDF component)
@@ -181,8 +181,8 @@ DELIVERABLES:
 - Supabase schema SQL file with RLS policies
 - Supabase seed SQL with sample courses, lessons, users
 - .env.example with every required variable documented
-- README.md: local setup, Supabase config, Stripe webhook setup, Mux setup, deployment to Vercel
-- Stripe webhook handler fully wired (checkout.session.completed, invoice.paid, customer.subscription.deleted)
+- README.md: local setup, Supabase config, Razorpay webhook setup, Mux setup, deployment to Vercel
+- Razorpay webhook handler fully wired for checkout and subscription payment events
 - Mux webhook handler (video.asset.ready)
 
 ---
@@ -192,7 +192,7 @@ Build order:
 2. Supabase schema + RLS policies + seed data
 3. Auth flows (signup, login, OAuth, middleware)
 4. Public pages (home, catalogue, course detail)
-5. Stripe integration (checkout, webhooks, subscription portal)
+5. Razorpay integration (checkout, webhooks, subscription portal)
 6. Student dashboard + Mux video player
 7. Progress tracking + certificates (React-PDF)
 8. Admin portal

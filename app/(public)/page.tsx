@@ -73,7 +73,7 @@ export default async function HomePage() {
             {isDemoMode ? (
               <div className="rounded-[26px] border border-[#e36a2f]/20 bg-[#e36a2f]/9 px-5 py-4 text-sm leading-7 text-foreground">
                 Demo mode is active because `.env.local` is missing. Public
-                pages use fallback academy content until Supabase, Stripe, Mux,
+                pages use fallback academy content until Supabase, Razorpay, Mux,
                 and email integrations are configured.
               </div>
             ) : null}

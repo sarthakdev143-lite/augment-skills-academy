@@ -234,7 +234,7 @@ const courseCareerSignals: Record<string, CourseCareerSignal> = {
     delivery: "Mentor reviews + implementation labs",
     projectCount: "3 production-style builds",
     promise: "Learn to architect, review, and ship modern full-stack experiences with stronger technical judgment.",
-    tools: ["Next.js 16", "Supabase", "Stripe", "Deployment workflows"],
+    tools: ["Next.js 16", "Supabase", "Razorpay", "Deployment workflows"],
     support: ["Weekly review rooms", "Architecture feedback", "Portfolio framing"],
   },
   "typescript-foundations": {

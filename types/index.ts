@@ -99,8 +99,8 @@ export type PaymentRecord = {
   id: string;
   user_id: string;
   course_id: string | null;
-  stripe_session_id: string;
-  stripe_customer_id: string | null;
+  razorpay_payment_id: string;
+  razorpay_customer_id: string | null;
   amount_cents: number;
   currency: string;
   status: string;

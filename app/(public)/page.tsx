@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
-import { Award, Briefcase, CircleCheckBig, Rocket, Shield } from "lucide-react";
+import { Award, Briefcase, CircleCheckBig, Shield } from "lucide-react";
 import { CourseCard } from "@/components/course/course-card";
 import { Reveal } from "@/components/reveal";
 import { Badge } from "@/components/ui/badge";

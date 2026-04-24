@@ -1,9 +1,9 @@
-export function isValidRazorpayWebhook(_rawBody: string, _signature: string) {
+export function isValidRazorpayWebhook() {
   console.warn("not configured");
   return false;
 }
 
-export async function handleRazorpayEvent(_event: unknown) {
+export async function handleRazorpayEvent() {
   console.warn("not configured");
   return null;
 }

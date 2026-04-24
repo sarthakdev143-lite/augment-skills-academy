@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from "next";
 import { BriefcaseBusiness, CircleCheckBig, Clock3, Target } from "lucide-react";
 import { notFound } from "next/navigation";

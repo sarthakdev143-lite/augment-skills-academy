@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { ContactForm } from "@/components/contact/contact-form";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";

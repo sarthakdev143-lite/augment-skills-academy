@@ -8,7 +8,7 @@ function hashPassword(value: string) {
   return createHmac("sha256", "augment-admin-session").update(value).digest("hex");
 }
 
-export async function isAdminAuthenticated(_request?: Request) {
+export async function isAdminAuthenticated() {
   const cookieStore = await cookies();
   const session = cookieStore.get(COOKIE_NAME)?.value;
   return session === hashPassword(ADMIN_PASSWORD);

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import { ArrowRight, Briefcase, Rocket, Shield, Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";

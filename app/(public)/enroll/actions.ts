@@ -60,7 +60,7 @@ export async function submitEnrollmentAction(input: z.infer<typeof enrollmentSch
       await resend.emails.send({
         from: env.RESEND_FROM_EMAIL ?? "augmentskillacademy@gmail.com",
         to: parsed.data.email,
-        subject: "You're enrolled at Augment Skills Academy 🎉",
+        subject: "You're enrolled at Augment Skills Academy",
         react: EnrollmentConfirmation({
           studentName: parsed.data.name,
           courseName: parsed.data.courseName,
@@ -73,7 +73,7 @@ export async function submitEnrollmentAction(input: z.infer<typeof enrollmentSch
 
     return {
       status: "success",
-      message: `🎉 You're in! We've received your enrollment request. Our team will reach out to ${parsed.data.email} within 24 hours.`,
+      message: `You're in. We've received your enrollment request. Our team will reach out to ${parsed.data.email} within 24 hours.`,
     };
   } catch (error) {
     return {

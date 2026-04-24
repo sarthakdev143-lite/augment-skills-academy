@@ -1,4 +1,4 @@
-export async function createMuxPlaybackToken(_playbackId: string) {
+export async function createMuxPlaybackToken() {
   console.warn("not configured");
   return null;
 }

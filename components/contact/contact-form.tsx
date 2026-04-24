@@ -14,7 +14,6 @@ import type { ServerActionState } from "@/types";
 const schema = z.object({
   name: z.string().min(2, "Please enter your name."),
   email: z.string().email("Enter a valid email address."),
-  company: z.string().optional(),
   message: z.string().min(20, "Please share a bit more context."),
 });
 
@@ -28,7 +27,6 @@ export function ContactForm() {
     defaultValues: {
       name: "",
       email: "",
-      company: "",
       message: "",
     },
   });
@@ -49,40 +47,30 @@ export function ContactForm() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Name</label>
           <Input {...form.register("name")} />
-          {form.formState.errors.name ? (
-            <p className="text-sm text-rose-400">{form.formState.errors.name.message}</p>
-          ) : null}
+          {form.formState.errors.name ? <p className="text-sm text-rose-400">{form.formState.errors.name.message}</p> : null}
         </div>
         <div className="space-y-2">
           <label className="text-sm font-medium">Email</label>
           <Input type="email" {...form.register("email")} />
-          {form.formState.errors.email ? (
-            <p className="text-sm text-rose-400">{form.formState.errors.email.message}</p>
-          ) : null}
+          {form.formState.errors.email ? <p className="text-sm text-rose-400">{form.formState.errors.email.message}</p> : null}
         </div>
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Company</label>
-        <Input {...form.register("company")} />
-      </div>
-
-      <div className="space-y-2">
         <label className="text-sm font-medium">Message</label>
-        <Textarea {...form.register("message")} />
-        {form.formState.errors.message ? (
-          <p className="text-sm text-rose-400">{form.formState.errors.message.message}</p>
-        ) : null}
+        <Textarea
+          {...form.register("message")}
+          placeholder="Tell us about your goals, which course you're interested in, or any questions you have..."
+        />
+        {form.formState.errors.message ? <p className="text-sm text-rose-400">{form.formState.errors.message.message}</p> : null}
       </div>
 
       {state.message && state.status !== "idle" ? (
-        <p className={state.status === "error" ? "text-sm text-rose-400" : "text-sm text-emerald-400"}>
-          {state.message}
-        </p>
+        <p className={state.status === "error" ? "text-sm text-rose-400" : "text-sm text-emerald-400"}>{state.message}</p>
       ) : null}
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? "Sending..." : "Send inquiry"}
+        {isPending ? "Sending..." : "Send message"}
       </Button>
     </form>
   );

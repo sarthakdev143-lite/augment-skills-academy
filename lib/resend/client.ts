@@ -4,6 +4,10 @@ import { env } from "@/lib/env";
 let resendClient: Resend | null = null;
 
 export function getResendClient() {
+  if (!env.RESEND_API_KEY) {
+    throw new Error("Resend not configured");
+  }
+
   if (!resendClient) {
     resendClient = new Resend(env.RESEND_API_KEY);
   }

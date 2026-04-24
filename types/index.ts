@@ -36,6 +36,12 @@ export type Course = {
   featured: boolean;
   instructor_id: string;
   created_at: string;
+  tagline?: string;
+  tools?: string[];
+  frameworkOptions?: string[];
+  bonusAddon?: string;
+  isCustom?: boolean;
+  customFlowDescription?: string;
 };
 
 export type CourseModule = {
@@ -93,29 +99,6 @@ export type Review = {
   body: string;
   approved: boolean;
   created_at: string;
-};
-
-export type PaymentRecord = {
-  id: string;
-  user_id: string;
-  course_id: string | null;
-  razorpay_payment_id: string;
-  razorpay_customer_id: string | null;
-  amount_cents: number;
-  currency: string;
-  status: string;
-  created_at: string;
-};
-
-export type Coupon = {
-  id: string;
-  code: string;
-  discount_type: "percent" | "fixed";
-  discount_value: number;
-  max_uses: number | null;
-  used_count: number;
-  expires_at: string | null;
-  active: boolean;
 };
 
 export type Notification = {
@@ -233,14 +216,24 @@ export type AdminCourseOverview = CourseSummary & {
   enrollment_count: number;
 };
 
-export type AdminOverview = {
-  totalRevenue: number;
-  totalEnrollments: number;
-  activeStudents: number;
-  activeSubscriptions: number;
-  pendingReviews: number;
-  courses: AdminCourseOverview[];
-  recentReviews: ReviewWithAuthor[];
-  coupons: Coupon[];
-  revenueSeries: RevenuePoint[];
+export type EnrollmentRequest = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  course_slug: string;
+  course_name: string;
+  selected_track: string | null;
+  background_level: string;
+  preferred_start_date: string | null;
+  additional_info: string | null;
+  created_at: string;
+};
+
+export type ContactSubmission = {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  created_at: string;
 };

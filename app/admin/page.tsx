@@ -1,249 +1,160 @@
-import Link from "next/link";
-import {
-  Activity,
-  BadgeDollarSign,
-  BookOpen,
-  GraduationCap,
-  Star,
-} from "lucide-react";
+import { Inbox, Mail, CalendarDays } from "lucide-react";
 import { KpiCard } from "@/components/admin/kpi-card";
 import { Card } from "@/components/ui/card";
-import { requireRole } from "@/lib/auth";
-import { getAdminOverview } from "@/lib/courses";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { listContactSubmissions, listEnrollmentRequests } from "@/lib/courses";
+import { formatDate } from "@/lib/utils";
+import { isSupabaseConfigured } from "@/lib/env";
+
+function startOfWeek(date: Date) {
+  const next = new Date(date);
+  const day = next.getDay();
+  const diff = (day + 6) % 7;
+  next.setDate(next.getDate() - diff);
+  next.setHours(0, 0, 0, 0);
+  return next;
+}
 
 export default async function AdminPage() {
-  await requireRole(["admin"]);
-  const overview = await getAdminOverview();
+  const [enrollments, contacts] = await Promise.all([
+    listEnrollmentRequests(),
+    listContactSubmissions(),
+  ]);
+
+  const thisWeek = startOfWeek(new Date()).getTime();
+  const thisWeekEnrollments = enrollments.filter((item) => new Date(item.created_at).getTime() >= thisWeek);
+  const courseBreakdown = enrollments.reduce<Record<string, number>>((acc, item) => {
+    acc[item.course_slug] = (acc[item.course_slug] ?? 0) + 1;
+    return acc;
+  }, {});
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
       <div className="max-w-3xl">
         <h1 className="text-4xl font-semibold">Admin overview</h1>
-        <p className="mt-4 text-lg leading-8 text-muted">
-          Monitor revenue, active learners, review moderation, and the health of
-          your course catalogue from one place.
-        </p>
+        <p className="mt-4 text-lg leading-8 text-muted">Review enrollment requests, contact submissions, and quick summary stats from one place.</p>
       </div>
 
-      <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        <KpiCard
-          label="Revenue"
-          value={formatCurrency(overview.totalRevenue)}
-          hint="Across one-time purchases and subscriptions"
-          icon={<BadgeDollarSign size={20} />}
-        />
-        <KpiCard
-          label="Enrollments"
-          value={String(overview.totalEnrollments)}
-          hint="Total active enrollments"
-          icon={<GraduationCap size={20} />}
-        />
-        <KpiCard
-          label="Students"
-          value={String(overview.activeStudents)}
-          hint="Unique learners in the platform"
-          icon={<Activity size={20} />}
-        />
-        <KpiCard
-          label="Courses"
-          value={String(overview.courses.length)}
-          hint="Published and draft courses"
-          icon={<BookOpen size={20} />}
-        />
-        <KpiCard
-          label="Pending reviews"
-          value={String(overview.pendingReviews)}
-          hint="Moderation queue"
-          icon={<Star size={20} />}
-        />
-      </div>
-
-      <div className="mt-12 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-        <Card>
-          <h2 className="text-2xl font-semibold">Revenue reporting snapshot</h2>
-          {overview.totalRevenue > 0 || overview.totalEnrollments > 0 ? (
-            <div className="mt-6 grid gap-3">
-              {overview.revenueSeries.map((point) => (
-                <div
-                  key={point.label}
-                  className="flex items-center justify-between rounded-2xl border border-border/60 bg-white/35 px-4 py-4 dark:bg-white/5"
-                >
-                  <div>
-                    <p className="font-medium">{point.label}</p>
-                    <p className="text-sm text-muted">{point.enrollments} enrollments</p>
-                  </div>
-                  <p className="text-lg font-semibold">{formatCurrency(point.revenue)}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-6 rounded-2xl border border-dashed border-border/70 px-4 py-6 text-sm text-muted">
-              No revenue or enrollment data has landed yet. Once purchases start
-              coming in, monthly reporting will appear here automatically.
-            </p>
-          )}
-        </Card>
-
-        <Card>
-          <h2 className="text-2xl font-semibold">Coupon management</h2>
-          {overview.coupons.length ? (
-            <div className="mt-6 space-y-3">
-              {overview.coupons.map((coupon) => (
-                <div
-                  key={coupon.id}
-                  className="rounded-2xl border border-border/60 bg-white/35 px-4 py-4 dark:bg-white/5"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <p className="font-medium">{coupon.code}</p>
-                    <p className="text-sm text-muted">
-                      {coupon.discount_type === "percent"
-                        ? `${coupon.discount_value}%`
-                        : formatCurrency(coupon.discount_value / 100)}
-                    </p>
-                  </div>
-                  <p className="mt-2 text-sm text-muted">
-                    {coupon.used_count} used
-                    {coupon.max_uses ? ` of ${coupon.max_uses}` : ""}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-6 rounded-2xl border border-dashed border-border/70 px-4 py-6 text-sm text-muted">
-              No coupons created yet.
-            </p>
-          )}
-        </Card>
+      <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <KpiCard label="Total Enrollments" value={String(enrollments.length)} hint="All enrollment requests" icon={<Inbox size={20} />} />
+        <KpiCard label="Contact Messages" value={String(contacts.length)} hint="All contact form submissions" icon={<Mail size={20} />} />
+        <KpiCard label="This Week's Enrollments" value={String(thisWeekEnrollments.length)} hint="Submitted since Monday" icon={<CalendarDays size={20} />} />
       </div>
 
       <div className="mt-12 space-y-6">
         <Card>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-semibold">Course catalogue</h2>
-              <p className="mt-2 text-sm text-muted">
-                Every course in your database, including drafts and unpublished work.
-              </p>
+              <h2 className="text-2xl font-semibold">Enrollment Requests</h2>
+              <p className="mt-2 text-sm text-muted">Every enrollment request, ordered from newest to oldest.</p>
             </div>
-            <p className="text-sm text-muted">{overview.courses.length} total courses</p>
+            <span className="rounded-full bg-accent/10 px-3 py-1 text-sm font-semibold text-accent">{enrollments.length} enrollment requests</span>
           </div>
 
-          {overview.courses.length ? (
-            <div className="mt-6 grid gap-4 xl:grid-cols-2">
-              {overview.courses.map((course) => (
-                <div
-                  key={course.id}
-                  className="rounded-2xl border border-border/60 bg-white/35 px-5 py-5 dark:bg-white/5"
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div>
-                      <Link
-                        href={`/courses/${course.slug}`}
-                        className="text-lg font-semibold text-foreground hover:text-accent"
-                      >
-                        {course.title}
-                      </Link>
-                      <p className="mt-2 text-sm text-muted">
-                        {course.category} / {course.level}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      <span
-                        className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${
-                          course.published
-                            ? "bg-emerald-500/12 text-emerald-700 dark:text-emerald-300"
-                            : "bg-amber-500/12 text-amber-700 dark:text-amber-300"
-                        }`}
-                      >
-                        {course.published ? "Published" : "Draft"}
-                      </span>
-                      {course.featured ? (
-                        <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                          Featured
-                        </span>
-                      ) : null}
-                    </div>
-                  </div>
-
-                  <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                        Price
-                      </p>
-                      <p className="mt-2 text-sm font-medium text-foreground">
-                        {formatCurrency(course.price_cents / 100)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                        Lessons
-                      </p>
-                      <p className="mt-2 text-sm font-medium text-foreground">
-                        {course.total_lessons}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                        Enrollments
-                      </p>
-                      <p className="mt-2 text-sm font-medium text-foreground">
-                        {course.enrollment_count}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                        Rating
-                      </p>
-                      <p className="mt-2 text-sm font-medium text-foreground">
-                        {course.review_count
-                          ? `${course.average_rating.toFixed(1)} / 5`
-                          : "No reviews yet"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-muted">
-                    <p>Instructor: {course.instructor?.full_name ?? "Unassigned"}</p>
-                    <p>Created {formatDate(course.created_at)}</p>
-                  </div>
-                </div>
-              ))}
+          {!isSupabaseConfigured() ? (
+            <p className="mt-6 rounded-2xl border border-dashed border-border/70 px-4 py-6 text-sm text-muted">Supabase is not configured. Enrollment requests will appear here after configuration.</p>
+          ) : enrollments.length ? (
+            <div className="mt-6 overflow-x-auto">
+              <table className="min-w-full text-left text-sm">
+                <thead className="text-muted">
+                  <tr>
+                    {["Name", "Email", "Phone", "Course", "Track", "Background", "Start Date", "Notes", "Submitted At"].map((header) => (
+                      <th key={header} className="border-b border-border/60 px-3 py-3 font-medium">{header}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {enrollments.map((item) => (
+                    <tr key={item.id} className="align-top">
+                      <td className="border-b border-border/40 px-3 py-4">{item.name}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.email}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.phone}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.course_name}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.selected_track ?? "-"}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.background_level}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.preferred_start_date ?? "-"}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.additional_info ?? "-"}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{formatDate(item.created_at)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           ) : (
-            <p className="mt-6 rounded-2xl border border-dashed border-border/70 px-4 py-6 text-sm text-muted">
-              No courses found in Supabase yet. Once you add courses, they will show up
-              here automatically.
-            </p>
+            <p className="mt-6 rounded-2xl border border-dashed border-border/70 px-4 py-6 text-sm text-muted">No enrollment requests yet.</p>
           )}
         </Card>
 
         <Card>
-          <h2 className="text-2xl font-semibold">Review moderation</h2>
-          {overview.recentReviews.length ? (
-            <div className="mt-6 space-y-3">
-              {overview.recentReviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="rounded-2xl border border-border/60 bg-white/35 px-4 py-4 dark:bg-white/5"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="font-medium">{review.author_name}</p>
-                      <p className="text-sm text-muted">{review.author_role}</p>
+          <h2 id="contact-messages" className="text-2xl font-semibold">Contact Submissions</h2>
+          <div className="mt-6 space-y-3">
+            {!isSupabaseConfigured() ? (
+              <p className="rounded-2xl border border-dashed border-border/70 px-4 py-6 text-sm text-muted">Supabase is not configured. Contact submissions will appear here after configuration.</p>
+            ) : contacts.length ? (
+              contacts.map((item) => (
+                <details key={item.id} className="rounded-2xl border border-border/60 bg-white/35 px-4 py-4 dark:bg-white/5">
+                  <summary className="cursor-pointer list-none">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <p className="font-medium">{item.name}</p>
+                        <p className="text-sm text-muted">{item.email}</p>
+                      </div>
+                      <p className="max-w-xl text-sm text-muted">{item.message.slice(0, 100)}{item.message.length > 100 ? "..." : ""}</p>
+                      <span className="text-sm text-muted">{formatDate(item.created_at)}</span>
                     </div>
-                    <p className="text-sm text-muted">{review.rating}/5</p>
-                  </div>
-                  <p className="mt-2 text-sm text-muted">{review.body}</p>
-                </div>
-              ))}
+                  </summary>
+                  <p className="mt-4 text-sm leading-7 text-muted">{item.message}</p>
+                </details>
+              ))
+            ) : (
+              <p className="rounded-2xl border border-dashed border-border/70 px-4 py-6 text-sm text-muted">No contact messages yet.</p>
+            )}
+          </div>
+        </Card>
+
+        <Card>
+          <h2 className="text-2xl font-semibold">Student/Enrollment Summary</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-border/60 p-4">
+              <p className="text-sm text-muted">Total enrollments</p>
+              <p className="mt-2 text-3xl font-black">{enrollments.length}</p>
             </div>
-          ) : (
-            <p className="mt-6 rounded-2xl border border-dashed border-border/70 px-4 py-6 text-sm text-muted">
-              No reviews submitted yet.
-            </p>
-          )}
+            <div className="rounded-2xl border border-border/60 p-4 md:col-span-2">
+              <p className="text-sm text-muted">Course breakdown</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {Object.entries(courseBreakdown).map(([slug, count]) => (
+                  <span key={slug} className="rounded-full bg-accent/10 px-3 py-1 text-sm font-medium text-accent">
+                    {slug}: {count}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <p className="text-sm text-muted">Most recent 5 enrollments</p>
+            <div className="mt-3 overflow-x-auto">
+              <table className="min-w-full text-left text-sm">
+                <thead className="text-muted">
+                  <tr>
+                    <th className="border-b border-border/60 px-3 py-3 font-medium">Name</th>
+                    <th className="border-b border-border/60 px-3 py-3 font-medium">Course</th>
+                    <th className="border-b border-border/60 px-3 py-3 font-medium">Track</th>
+                    <th className="border-b border-border/60 px-3 py-3 font-medium">Submitted At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {enrollments.slice(0, 5).map((item) => (
+                    <tr key={item.id}>
+                      <td className="border-b border-border/40 px-3 py-4">{item.name}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.course_name}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{item.selected_track ?? "-"}</td>
+                      <td className="border-b border-border/40 px-3 py-4">{formatDate(item.created_at)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </Card>
       </div>
     </main>

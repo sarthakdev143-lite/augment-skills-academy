@@ -26,11 +26,11 @@ export const metadata: Metadata = {
     template: "%s | Augment Skills Academy",
   },
   description:
-    "Mentor-led career paths for engineers, operators, and ambitious learners who want job-ready skills and visible proof of work.",
+    "Augment Skills Academy offers mentor-led courses in AI, DevOps, frontend, backend, and custom career tracks with project work and placement support.",
   openGraph: {
     title: "Augment Skills Academy",
     description:
-      "Outcome-first learning with mentor feedback, applied projects, career support, and modern technical specializations.",
+      "Real skills, real projects, and real career support for learners building their next role in tech.",
     siteName: "Augment Skills Academy",
     type: "website",
   },

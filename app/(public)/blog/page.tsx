@@ -12,12 +12,9 @@ export default async function BlogPage() {
     <main className="mx-auto max-w-7xl px-6 py-16">
       <div className="max-w-3xl">
         <Badge>Resources</Badge>
-        <h1 className="mt-4 text-5xl font-semibold">
-          MDX-backed articles for modern engineering teams
-        </h1>
+        <h1 className="mt-4 text-5xl font-semibold">Learning Resources & Career Guides</h1>
         <p className="mt-5 text-lg leading-8 text-muted">
-          Practical notes, curriculum thinking, and implementation essays that
-          complement the academy courses and improve product decision-making.
+          Practical guides, career roadmaps, and tech deep-dives to help you make smarter decisions about your learning path.
         </p>
       </div>
 

@@ -59,36 +59,36 @@ export default async function HomePage() {
 
           <Reveal delay={0.12}>
             <div className="illustration-shell shine-border-card relative rounded-[32px] bg-[#0e1e33] p-4 shadow-[0_32px_80px_rgba(0,0,0,0.30)] md:p-5">
-              <Image
+              {/* <Image
                 src="/hero-dashboard-illustration.svg"
                 alt="Academy dashboard showing progress, mentoring, and career outcomes"
                 width={880}
                 height={760}
                 priority
                 className="h-auto w-full rounded-[26px]"
-              />
-              <div className="absolute inset-x-8 bottom-8 rounded-[28px] border border-white/10 bg-[#081321]/76 p-5 backdrop-blur-xl md:inset-x-10 md:p-6">
+              /> */}
+              <div className=" inset-x-8 bottom-8 rounded-[28px] p-5 backdrop-blur-xl md:inset-x-10 md:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-white/70">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-black/70">
                       What you get
                     </span>
-                    <h2 className="mt-4 text-[22px] font-black leading-tight text-white">
+                    <h2 className="mt-4 text-[22px] font-black leading-tight text-black">
                       Everything you need to move from learning to hiring-ready
                     </h2>
                   </div>
-                  <div className="hidden h-11 w-11 items-center justify-center rounded-2xl bg-accent text-white md:flex">
+                  <div className="hidden p-2 aspect-square items-center justify-center rounded-2xl bg-accent text-white md:flex">
                     <Sparkles size={18} />
                   </div>
                 </div>
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
                   {[
                     "Industry-expert mentors",
-                    "Hands-on project work",
+                    "Hands-on Live project work",
                     "Resume, mock interviews and referrals",
                     "Lifetime community access",
                   ].map((item) => (
-                    <div key={item} className="flex items-start gap-3 rounded-2xl bg-white/[0.07] px-4 py-3 text-white/85">
+                    <div key={item} className="flex items-start gap-3 rounded-2xl bg-white/[0.07] px-4 py-3 text-black/85">
                       <CircleCheckBig size={16} className="mt-1 text-accent-3" />
                       <p className="text-sm">{item}</p>
                     </div>
@@ -154,7 +154,7 @@ export default async function HomePage() {
         <div className="grid gap-6 md:grid-cols-3">
           {learningPillars.map((pillar, index) => (
             <Reveal key={pillar.title} delay={index * 0.07}>
-              <div className="rounded-3xl border border-border bg-surface p-7">
+              <div className="rounded-3xl border border-border bg-surface p-7 shadow-[0_12px_40px_rgba(26,18,9,0.08)] card-hover-glow">
                 <p className="text-[10px] font-black uppercase tracking-[0.22em] text-accent">{pillar.eyebrow}</p>
                 <h3 className="mt-4 text-2xl font-black text-foreground">{pillar.title}</h3>
                 <p className="mt-4 text-sm leading-7 text-muted">{pillar.description}</p>
@@ -164,12 +164,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16">
+      <section className="mx-auto max-w-7xl px-6 py-20 my-10 rounded-[40px] bg-[#0a111a] text-white">
         <Reveal>
           <div className="mb-14">
-            <Badge>Our Mentors</Badge>
-            <h2 className="mt-4 text-4xl font-black md:text-5xl">Learn from industry professionals who've been there</h2>
-            <p className="mt-4 max-w-3xl text-lg text-muted">
+            <Badge className="bg-white/10 text-white hover:bg-white/20 border-white/10">Our Mentors</Badge>
+            <h2 className="mt-4 text-4xl font-black md:text-5xl text-white">Learn from industry professionals who've been there</h2>
+            <p className="mt-4 max-w-3xl text-lg text-white/70">
               We partner with experienced engineers, product leads, and growth professionals who mentor you through structured paths. No celebrities - just people who do this work every day.
             </p>
           </div>
@@ -247,7 +247,7 @@ export default async function HomePage() {
           <div className="grid gap-5 md:grid-cols-3">
             {testimonials.map((testimonial, index) => (
               <Reveal key={`${testimonial.name}-${index}`} delay={index * 0.07}>
-                <div className="flex h-full flex-col rounded-3xl border border-border bg-background/80 p-7">
+                <div className="flex h-full flex-col rounded-3xl border border-border bg-surface p-7 shadow-[0_16px_48px_rgba(26,18,9,0.1)] card-hover-glow">
                   <p className="flex-1 text-sm leading-7 text-muted">"{testimonial.quote}"</p>
                   <div className="mt-6 border-t border-border pt-5">
                     <p className="text-sm font-black text-foreground">{testimonial.name}</p>

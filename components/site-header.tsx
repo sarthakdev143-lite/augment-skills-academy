@@ -39,9 +39,9 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3.5">
         <Link href="/" className="group flex items-center gap-3">
-          <Image src="/brand-mark.svg" alt="Augment Skills Academy" width={38} height={38} priority />
+          <Image src="/brand-mark.png" alt="Augment Skills Academy" width={38} height={38} priority />
           <div className="hidden sm:block leading-none">
-            <p className="text-[9px] font-black uppercase tracking-[0.28em] text-muted/80">Augment Skills</p>
+            <p className="text-[9px] font-black uppercase tracking-[0.28em] text-muted/80">Augment Skill</p>
             <p className="text-[13px] font-black tracking-tight text-foreground">Academy</p>
           </div>
         </Link>
@@ -83,7 +83,7 @@ export function SiteHeader() {
         </button>
       </div>
 
-      <div className={`overflow-hidden transition-all duration-300 lg:hidden ${mobileOpen ? "max-h-[420px]" : "max-h-0"}`}>
+      <div className={`overflow-hidden transition-all duration-300 lg:hidden ${mobileOpen ? "max-h-105" : "max-h-0"}`}>
         <div className="border-t border-border bg-background/98 px-6 py-5 backdrop-blur-2xl">
           <div className="space-y-1">
             {links.map((link) => (

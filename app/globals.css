@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
 /* ─── Core palette ─────────────────────────────────────────────────────── */
 :root {
@@ -50,7 +50,7 @@
 }
 
 /* ─── Dark mode ─────────────────────────────────────────────────────────── */
-html.dark {
+/* html.dark {
   --background:     #0c1624;
   --foreground:     #fef9ef;
   --surface:        rgba(14, 26, 44, 0.85);
@@ -60,7 +60,7 @@ html.dark {
   --accent:         #ff8a4d;
   --accent-2:       #44b7af;
   --accent-3:       #ffd88c;
-}
+} */
 
 /* ─── Reset ──────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
@@ -308,6 +308,33 @@ html.dark .dot-pattern {
     radial-gradient(ellipse 40% 50% at 60% 10%, rgba(246,196,110,0.12) 0%, transparent 50%);
 }
 
+.illustration-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  box-shadow: 0 28px 80px rgba(8, 19, 33, 0.28);
+}
+
+.illustration-shell::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.ambient-ring {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(20px);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
 /* ─── Announcement bar shimmer ───────────────────────────────────────────── */
 @keyframes bar-shimmer {
   0%   { left: -100%; }
@@ -376,6 +403,19 @@ html.dark .card-hover-glow:hover {
   background: linear-gradient(var(--surface), var(--surface)) padding-box,
               linear-gradient(135deg, rgba(227,106,47,0.5), rgba(15,127,120,0.3), rgba(246,196,110,0.5)) border-box;
   border: 1px solid transparent;
+}
+
+.shine-border-card-dark {
+  background:
+    linear-gradient(rgba(253, 248, 242, 0.96), rgba(253, 248, 242, 0.96)) padding-box,
+    linear-gradient(135deg, rgba(227,106,47,0.45), rgba(15,127,120,0.25), rgba(246,196,110,0.4)) border-box;
+  border: 1px solid transparent;
+}
+
+.stat-tile {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 14px 36px rgba(20, 14, 5, 0.06);
 }
 
 @layer base {

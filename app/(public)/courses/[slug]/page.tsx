@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from "next";
+import Image from "next/image";
 import { BriefcaseBusiness, CircleCheckBig, Clock3, Target } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Curriculum } from "@/components/course/curriculum";
@@ -64,7 +65,7 @@ export default async function CourseDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <main className="pb-16">
+    <main className="overflow-x-hidden pb-16">
       <section className="mx-auto max-w-7xl px-6 py-10 md:py-14">
         <div className="grid gap-8 xl:grid-cols-[1.04fr_0.96fr] xl:items-start">
           <div>
@@ -73,17 +74,17 @@ export default async function CourseDetailPage({ params }: PageProps) {
               <Badge>{course.category}</Badge>
               <Badge>{course.level}</Badge>
             </div>
-            <h1 className="mt-5 max-w-4xl text-balance text-5xl font-semibold md:text-6xl">{course.title}</h1>
+            <h1 className="mt-5 max-w-4xl text-balance text-5xl font-black md:text-6xl">{course.title}</h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-muted">{course.description}</p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
               {spotlightItems.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.label} className="stat-tile rounded-[28px] px-5 py-5 dark:text-black">
+                  <div key={item.label} className="stat-tile rounded-[28px] px-5 py-5">
                     <Icon size={18} className="text-accent" />
                     <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-muted">{item.label}</p>
-                    <p className="mt-3 text-lg font-semibold">{item.value}</p>
+                    <p className="mt-3 text-lg font-semibold text-foreground">{item.value}</p>
                     <p className="mt-1 text-sm text-muted">{item.detail}</p>
                   </div>
                 );
@@ -96,42 +97,57 @@ export default async function CourseDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          <Card className="rounded-[34px] p-8">
-            <p className="text-sm uppercase tracking-[0.18em] text-muted">What's included</p>
-            <div className="mt-5 space-y-3">
-              {signal.support.map((item) => (
-                <div key={item} className="flex items-start gap-3">
-                  <CircleCheckBig size={16} className="mt-1 text-accent" />
-                  <p className="text-sm leading-7 text-muted">{item}</p>
+          <div className="space-y-6">
+            <div className="gradient-border-card overflow-hidden rounded-[34px] p-4">
+              <div className="relative overflow-hidden rounded-[28px] bg-[#0e1e33] p-4">
+                <Image
+                  src="/hero-dashboard-illustration.svg"
+                  alt="Course outcomes illustration"
+                  width={880}
+                  height={760}
+                  className="h-auto w-full rounded-[22px]"
+                />
+                <div className="absolute inset-x-7 bottom-7 rounded-[28px] border border-white/10 bg-[#081321]/80 p-5 text-white backdrop-blur-xl">
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/60">What's included</p>
+                  <div className="mt-4 space-y-3">
+                    {signal.support.map((item) => (
+                      <div key={item} className="flex items-start gap-3">
+                        <CircleCheckBig size={16} className="mt-1 text-accent-3" />
+                        <p className="text-sm leading-7 text-white/80">{item}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+              </div>
             </div>
 
-            {course.frameworkOptions?.length ? (
-              <div className="mt-8">
-                <p className="text-sm font-semibold text-foreground">Choose your track</p>
-                <div className="mt-4">
-                  <FrameworkSelector options={course.frameworkOptions} courseSlug={course.slug} />
+            <Card className="rounded-[34px] p-8">
+              {course.frameworkOptions?.length ? (
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Choose your track</p>
+                  <div className="mt-4">
+                    <FrameworkSelector options={course.frameworkOptions} courseSlug={course.slug} />
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
 
-            {course.isCustom ? (
-              <div className="mt-8">
-                <p className="text-sm font-semibold text-foreground">Choose what to combine</p>
-                <p className="mt-2 text-sm leading-7 text-muted">{course.customFlowDescription}</p>
-                <div className="mt-4">
-                  <CustomCourseSelector options={customOptions} />
+              {course.isCustom ? (
+                <div className={course.frameworkOptions?.length ? "mt-8" : ""}>
+                  <p className="text-sm font-semibold text-foreground">Choose what to combine</p>
+                  <p className="mt-2 text-sm leading-7 text-muted">{course.customFlowDescription}</p>
+                  <div className="mt-4">
+                    <CustomCourseSelector options={customOptions} />
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
 
-            {!course.frameworkOptions?.length && !course.isCustom ? (
-              <a href={`/enroll?course=${course.slug}`} className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-black text-white">
-                Enroll Now
-              </a>
-            ) : null}
-          </Card>
+              {!course.frameworkOptions?.length && !course.isCustom ? (
+                <a href={`/enroll?course=${course.slug}`} className="inline-flex w-full items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-black text-white">
+                  Enroll Now
+                </a>
+              ) : null}
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -150,7 +166,7 @@ export default async function CourseDetailPage({ params }: PageProps) {
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-8 xl:grid-cols-[1.08fr_0.92fr]">
           <div>
-            <h2 className="text-3xl font-semibold">Curriculum</h2>
+            <h2 className="text-3xl font-black">Curriculum</h2>
             <p className="mt-3 max-w-3xl text-muted">Preview lessons are publicly visible, while enrolled learners unlock the full path with mentor guidance and project work.</p>
             <div className="mt-8">
               <Curriculum modules={course.modules} />
@@ -158,6 +174,16 @@ export default async function CourseDetailPage({ params }: PageProps) {
           </div>
 
           <div className="space-y-6">
+            <div className="glass-panel overflow-hidden rounded-[34px] p-4">
+              <Image
+                src="/mentor-network-illustration.svg"
+                alt="Mentor support illustration"
+                width={760}
+                height={640}
+                className="h-auto w-full rounded-[24px]"
+              />
+            </div>
+
             <Card className="rounded-[34px]">
               <p className="text-sm uppercase tracking-[0.18em] text-muted">Your Mentor</p>
               <h3 className="mt-4 text-2xl font-semibold">Industry Expert Mentor</h3>

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
+import Image from "next/image";
 import Link from "next/link";
-import { Award, Briefcase, CircleCheckBig, Shield } from "lucide-react";
+import { ArrowUpRight, Award, Briefcase, CircleCheckBig, Shield, Sparkles } from "lucide-react";
 import { CourseCard } from "@/components/course/course-card";
 import { Reveal } from "@/components/reveal";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +17,9 @@ export default async function HomePage() {
   return (
     <main className="overflow-x-hidden pb-20">
       <section className="relative mx-auto max-w-7xl px-6 pb-8 pt-10 md:pb-14 md:pt-20">
+        <div className="ambient-ring blob left-[-4rem] top-8 h-32 w-32 bg-accent/20" />
+        <div className="ambient-ring blob-delay right-[-2rem] top-28 h-40 w-40 bg-accent-2/18" />
+
         <div className="relative grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
           <Reveal className="space-y-8">
             <div className="space-y-5">
@@ -42,7 +46,7 @@ export default async function HomePage() {
             <div className="flex flex-wrap gap-3 pt-1">
               {[
                 { value: "3x", label: "Career acceleration" },
-                { value: "4.9★", label: "Satisfaction" },
+                { value: "4.9+", label: "Learner rating" },
                 { value: "100%", label: "Placement Support" },
               ].map((item) => (
                 <div key={item.label} className="stat-pip flex items-center gap-2 rounded-full px-4 py-2">
@@ -54,36 +58,55 @@ export default async function HomePage() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <div className="shine-border-card relative rounded-[32px] bg-[#0e1e33] p-7 shadow-[0_32px_80px_rgba(0,0,0,0.30)]">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-white/70">
-                What you get
-              </span>
-              <h2 className="mt-6 text-[22px] font-black leading-tight text-white">Everything you need to move from learning to hiring-ready</h2>
-              <div className="mt-6 space-y-4">
-                {[
-                  "Industry-expert mentors",
-                  "Hands-on project work",
-                  "Resume, mock interviews & referrals",
-                  "Lifetime community access",
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-3 rounded-2xl bg-white/[0.07] px-4 py-3 text-white/85">
-                    <CircleCheckBig size={16} className="mt-1 text-accent-3" />
-                    <p className="text-sm">{item}</p>
+            <div className="illustration-shell shine-border-card relative rounded-[32px] bg-[#0e1e33] p-4 shadow-[0_32px_80px_rgba(0,0,0,0.30)] md:p-5">
+              <Image
+                src="/hero-dashboard-illustration.svg"
+                alt="Academy dashboard showing progress, mentoring, and career outcomes"
+                width={880}
+                height={760}
+                priority
+                className="h-auto w-full rounded-[26px]"
+              />
+              <div className="absolute inset-x-8 bottom-8 rounded-[28px] border border-white/10 bg-[#081321]/76 p-5 backdrop-blur-xl md:inset-x-10 md:p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-white/70">
+                      What you get
+                    </span>
+                    <h2 className="mt-4 text-[22px] font-black leading-tight text-white">
+                      Everything you need to move from learning to hiring-ready
+                    </h2>
                   </div>
-                ))}
+                  <div className="hidden h-11 w-11 items-center justify-center rounded-2xl bg-accent text-white md:flex">
+                    <Sparkles size={18} />
+                  </div>
+                </div>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  {[
+                    "Industry-expert mentors",
+                    "Hands-on project work",
+                    "Resume, mock interviews and referrals",
+                    "Lifetime community access",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3 rounded-2xl bg-white/[0.07] px-4 py-3 text-white/85">
+                      <CircleCheckBig size={16} className="mt-1 text-accent-3" />
+                      <p className="text-sm">{item}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="relative py-10 overflow-hidden">
+      <section className="relative overflow-hidden py-10">
         <div className="relative mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-3 gap-5">
             {[
-              { value: marketingStats[0].value, label: marketingStats[0].label, color: "#0f7f78" },
-              { value: marketingStats[1].value, label: marketingStats[1].label, color: "#f6c46e" },
-              { value: marketingStats[2].value, label: marketingStats[2].label, color: "#8b5cf6" },
+              { value: marketingStats[0].value, label: marketingStats[0].label },
+              { value: marketingStats[1].value, label: marketingStats[1].label },
+              { value: marketingStats[2].value, label: marketingStats[2].label },
             ].map((stat, index) => (
               <Reveal key={stat.label} delay={index * 0.07}>
                 <div className="glass-panel rounded-3xl p-6 text-center">
@@ -94,17 +117,28 @@ export default async function HomePage() {
             ))}
           </div>
 
-          <div className="mt-8 rounded-[32px] bg-accent/10 p-8">
-            <h2 className="text-2xl font-black text-foreground">We don't just teach - we help you land</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted">
-              Every learner gets resume review, mock interviews, referral connections, and career guidance until they reach their goal.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {["Resume Help", "Mock Interviews", "Referrals", "Career Connections"].map((item) => (
-                <span key={item} className="rounded-full border border-accent/20 bg-background px-4 py-2 text-sm font-semibold text-foreground">
-                  {item}
-                </span>
-              ))}
+          <div className="mt-8 grid gap-6 rounded-[32px] bg-accent/10 p-6 md:grid-cols-[1fr_320px] md:items-center md:p-8">
+            <div>
+              <h2 className="text-2xl font-black text-foreground">We don't just teach - we help you land</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted">
+                Every learner gets resume review, mock interviews, referral connections, and career guidance until they reach their goal.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                {["Resume Help", "Mock Interviews", "Referrals", "Career Connections"].map((item) => (
+                  <span key={item} className="rounded-full border border-accent/20 bg-background px-4 py-2 text-sm font-semibold text-foreground">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="glass-panel relative overflow-hidden rounded-[28px] p-3">
+              <Image
+                src="/career-support-illustration.svg"
+                alt="Career support illustration showing resume review and placement readiness"
+                width={760}
+                height={520}
+                className="h-auto w-full rounded-[22px]"
+              />
             </div>
           </div>
         </div>
@@ -140,30 +174,49 @@ export default async function HomePage() {
             </p>
           </div>
         </Reveal>
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              icon: <Award size={22} />,
-              title: "Industry Veterans",
-              body: "Working professionals with 5-15 years in top product companies",
-            },
-            {
-              icon: <Briefcase size={22} />,
-              title: "Real-World Experience",
-              body: "Every mentor has shipped production systems used by thousands",
-            },
-            {
-              icon: <Shield size={22} />,
-              title: "Privacy Respected",
-              body: "Our mentors guide you behind the scenes - your growth is what's front and center",
-            },
-          ].map((item) => (
-            <div key={item.title} className="rounded-3xl border border-border bg-surface p-7">
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent">{item.icon}</div>
-              <h3 className="text-xl font-black text-foreground">{item.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-1">
+            {[
+              {
+                icon: <Award size={22} />,
+                title: "Industry Veterans",
+                body: "Working professionals with 5-15 years in top product companies",
+              },
+              {
+                icon: <Briefcase size={22} />,
+                title: "Real-World Experience",
+                body: "Every mentor has shipped production systems used by thousands",
+              },
+              {
+                icon: <Shield size={22} />,
+                title: "Privacy Respected",
+                body: "Our mentors guide you behind the scenes - your growth is what's front and center",
+              },
+            ].map((item) => (
+              <div key={item.title} className="rounded-3xl border border-border bg-surface p-7">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent">{item.icon}</div>
+                <h3 className="text-xl font-black text-foreground">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <Reveal delay={0.08}>
+            <div className="gradient-border-card overflow-hidden rounded-[32px] p-4">
+              <div className="relative overflow-hidden rounded-[26px] bg-[#f7ede0] p-4">
+                <Image
+                  src="/mentor-network-illustration.svg"
+                  alt="Mentor network illustration representing guided cohort learning"
+                  width={760}
+                  height={640}
+                  className="h-auto w-full rounded-[22px]"
+                />
+                <div className="absolute bottom-7 left-7 inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-background/85 px-4 py-2 text-sm font-semibold text-foreground shadow-[0_14px_40px_rgba(20,14,5,0.12)] backdrop-blur">
+                  Cohort guidance
+                  <ArrowUpRight size={14} className="text-accent" />
+                </div>
+              </div>
             </div>
-          ))}
+          </Reveal>
         </div>
       </section>
 
@@ -183,7 +236,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-16 overflow-hidden">
+      <section className="relative overflow-hidden py-16">
         <div className="relative mx-auto max-w-7xl px-6">
           <Reveal>
             <div className="mb-14 text-center">
@@ -220,7 +273,7 @@ export default async function HomePage() {
               <details className="group rounded-2xl border border-border bg-surface px-7 py-5 open:pb-6">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-foreground">
                   {faq.question}
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-accent text-lg leading-none">+</span>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-lg leading-none text-accent">+</span>
                 </summary>
                 <p className="mt-4 text-sm leading-7 text-muted">{faq.answer}</p>
               </details>
@@ -232,6 +285,9 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-10">
         <Reveal>
           <div className="relative overflow-hidden rounded-[40px] bg-[#0b1928] px-8 py-14 text-white md:px-14 md:py-16">
+            <div className="ambient-ring blob left-[-1rem] top-[-1rem] h-36 w-36 bg-accent/25" />
+            <div className="ambient-ring blob-delay right-10 top-8 h-28 w-28 bg-accent-2/20" />
+
             <div className="relative grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
               <div>
                 <h2 className="text-3xl font-black leading-tight md:text-5xl">Ready to build your next move?</h2>
@@ -239,13 +295,24 @@ export default async function HomePage() {
                   Explore the right course, enroll with your preferred track, and let our team guide you through the next step.
                 </p>
               </div>
-              <div className="flex flex-col gap-3 md:min-w-[200px]">
-                <Link href="/courses" className="shimmer-btn inline-flex items-center justify-center rounded-full bg-accent px-8 py-4.5 text-sm font-black text-white">
-                  Explore Courses
-                </Link>
-                <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-white/15 px-8 py-4 text-sm font-bold text-white/80">
-                  Get Started
-                </Link>
+              <div className="grid gap-4 md:min-w-[280px]">
+                <div className="overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-3">
+                  <Image
+                    src="/career-support-illustration.svg"
+                    alt="Career outcomes illustration"
+                    width={760}
+                    height={520}
+                    className="h-auto w-full rounded-[22px]"
+                  />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Link href="/courses" className="shimmer-btn inline-flex items-center justify-center rounded-full bg-accent px-8 py-4.5 text-sm font-black text-white">
+                    Explore Courses
+                  </Link>
+                  <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-white/15 px-8 py-4 text-sm font-bold text-white/80">
+                    Get Started
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

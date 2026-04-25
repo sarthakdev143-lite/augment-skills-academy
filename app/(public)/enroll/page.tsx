@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
+import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
@@ -109,6 +110,17 @@ export default function EnrollPage() {
           <p className="mt-4 text-sm leading-7 text-muted">
             {selectedCourse?.tagline ?? "Pick a track from the course page and complete the form to request your seat."}
           </p>
+
+          <div className="gradient-border-card mt-6 overflow-hidden rounded-[28px] p-3">
+            <Image
+              src="/career-support-illustration.svg"
+              alt="Enrollment and career support illustration"
+              width={760}
+              height={520}
+              className="h-auto w-full rounded-[22px]"
+            />
+          </div>
+
           <div className="mt-6 space-y-3">
             {(selectedCourse?.tools ?? []).slice(0, 5).map((item) => (
               <div key={item} className="rounded-2xl border border-border bg-background px-4 py-3 text-sm text-muted">{item}</div>

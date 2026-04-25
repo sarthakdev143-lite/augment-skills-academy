@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Clock, Filter, Layers, Search } from "lucide-react";
 import { CourseCard } from "@/components/course/course-card";
 import { Badge } from "@/components/ui/badge";
@@ -39,7 +40,10 @@ export default async function CoursesPage({ searchParams }: PageProps) {
   return (
     <main className="overflow-x-hidden pb-20">
       <section className="relative mx-auto max-w-7xl px-6 pb-10 pt-12">
-        <div className="relative grid gap-10 xl:grid-cols-[1fr_0.9fr] xl:items-center">
+        <div className="ambient-ring blob left-[-2rem] top-6 h-28 w-28 bg-accent/16" />
+        <div className="ambient-ring blob-delay right-0 top-10 h-36 w-36 bg-accent-2/14" />
+
+        <div className="relative grid gap-10 xl:grid-cols-[1fr_0.95fr] xl:items-center">
           <Reveal>
             <Badge>Courses</Badge>
             <h1 className="mt-5 text-5xl font-black leading-tight text-balance md:text-6xl">
@@ -51,16 +55,27 @@ export default async function CoursesPage({ searchParams }: PageProps) {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="shine-border-card-dark rounded-3xl p-7 text-black shadow-xl">
-              <p className="mb-5 text-[10px] font-black uppercase tracking-[0.22em] text-black/50">Catalogue signals</p>
-              <div className="grid grid-cols-3 gap-3">
-                {catalogSignals.map((signal) => (
-                  <div key={signal.label} className="rounded-2xl bg-white/6 p-4 text-center">
-                    <div className="mb-2 flex justify-center text-accent-3">{signal.icon}</div>
-                    <p className="text-xl font-black">{signal.value}</p>
-                    <p className="mt-1 text-[10px] font-semibold text-black/45">{signal.label}</p>
+            <div className="gradient-border-card overflow-hidden rounded-[34px] p-4">
+              <div className="relative overflow-hidden rounded-[28px] bg-[#fff8ef] p-4">
+                <Image
+                  src="/catalog-grid-illustration.svg"
+                  alt="Course catalog illustration"
+                  width={760}
+                  height={560}
+                  className="h-auto w-full rounded-[22px]"
+                />
+                <div className="absolute inset-x-8 bottom-8 shine-border-card-dark rounded-3xl p-7 text-black shadow-xl">
+                  <p className="mb-5 text-[10px] font-black uppercase tracking-[0.22em] text-black/50">Catalogue signals</p>
+                  <div className="grid grid-cols-3 gap-3">
+                    {catalogSignals.map((signal) => (
+                      <div key={signal.label} className="rounded-2xl bg-black/[0.04] p-4 text-center">
+                        <div className="mb-2 flex justify-center text-accent">{signal.icon}</div>
+                        <p className="text-xl font-black">{signal.value}</p>
+                        <p className="mt-1 text-[10px] font-semibold text-black/45">{signal.label}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </Reveal>

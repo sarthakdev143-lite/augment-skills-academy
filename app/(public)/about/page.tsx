@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Briefcase, Rocket, Shield, Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -32,13 +33,35 @@ export default function AboutPage() {
   return (
     <main className="overflow-x-hidden pb-20">
       <section className="relative mx-auto max-w-7xl px-6 pb-16 pt-14">
-        <div className="relative max-w-3xl">
-          <Reveal>
-            <Badge>About</Badge>
-            <h1 className="mt-5 text-5xl font-black leading-tight text-balance md:text-6xl">Building real careers through real skills</h1>
-            <p className="mt-6 text-xl leading-9 text-muted">
-              Augment Skills Academy was built because we saw too many learners stuck between endless tutorials and actual employment. We bridge that gap with structured paths, hands-on projects, and mentors who've walked the same road.
-            </p>
+        <div className="ambient-ring blob left-[-3rem] top-8 h-28 w-28 bg-accent/18" />
+        <div className="ambient-ring blob-delay right-0 top-10 h-40 w-40 bg-accent-2/15" />
+
+        <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div className="relative max-w-3xl">
+            <Reveal>
+              <Badge>About</Badge>
+              <h1 className="mt-5 text-5xl font-black leading-tight text-balance md:text-6xl">Building real careers through real skills</h1>
+              <p className="mt-6 text-xl leading-9 text-muted">
+                Augment Skills Academy was built because we saw too many learners stuck between endless tutorials and actual employment. We bridge that gap with structured paths, hands-on projects, and mentors who've walked the same road.
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.08}>
+            <div className="gradient-border-card overflow-hidden rounded-[34px] p-4">
+              <div className="relative overflow-hidden rounded-[28px] bg-[#0b1928] p-4">
+                <Image
+                  src="/about-journey-illustration.svg"
+                  alt="Illustration showing the academy journey from learning to career outcomes"
+                  width={760}
+                  height={560}
+                  className="h-auto w-full rounded-[22px]"
+                />
+                <div className="absolute bottom-7 left-7 rounded-full border border-white/10 bg-[#081321]/80 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
+                  Designed for momentum
+                </div>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -68,7 +91,7 @@ export default function AboutPage() {
         <div className="grid gap-5 md:grid-cols-2">
           {values.map((value, index) => (
             <Reveal key={value.title} delay={index * 0.07}>
-              <div className="rounded-3xl border border-border bg-surface p-7">
+              <div className="card-hover-glow rounded-3xl border border-border bg-surface p-7">
                 <div className="mb-5 flex h-13 w-13 items-center justify-center rounded-2xl bg-accent/10 text-accent">{value.icon}</div>
                 <h3 className="text-xl font-black text-foreground">{value.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-muted">{value.body}</p>
@@ -80,7 +103,7 @@ export default function AboutPage() {
 
       <section className="relative py-14">
         <div className="relative mx-auto max-w-7xl px-6">
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
             <Reveal>
               <div className="rounded-3xl bg-[#0e1e33] p-8 text-white">
                 <h2 className="text-2xl font-black">How we teach</h2>
@@ -101,15 +124,24 @@ export default function AboutPage() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="rounded-3xl border border-border bg-surface p-8">
-                <h2 className="text-2xl font-black text-foreground">What you get</h2>
-                <div className="mt-5 space-y-3.5 text-sm text-muted">
-                  {["Resume help", "Mock interviews", "Referral network", "Career guidance", "Community"].map((item) => (
-                    <div key={item} className="flex items-start gap-3">
-                      <ArrowRight size={14} className="mt-0.5 text-accent" />
-                      {item}
-                    </div>
-                  ))}
+              <div className="glass-panel overflow-hidden rounded-3xl p-4">
+                <Image
+                  src="/mentor-network-illustration.svg"
+                  alt="Mentor network illustration"
+                  width={760}
+                  height={640}
+                  className="h-auto w-full rounded-[24px]"
+                />
+                <div className="mt-5 rounded-[24px] border border-border bg-surface-strong p-6">
+                  <h2 className="text-2xl font-black text-foreground">What you get</h2>
+                  <div className="mt-5 space-y-3.5 text-sm text-muted">
+                    {["Resume help", "Mock interviews", "Referral network", "Career guidance", "Community"].map((item) => (
+                      <div key={item} className="flex items-start gap-3">
+                        <ArrowRight size={14} className="mt-0.5 text-accent" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -120,6 +152,7 @@ export default function AboutPage() {
       <section className="mx-auto max-w-7xl px-6 py-6">
         <Reveal>
           <div className="relative overflow-hidden rounded-[40px] bg-[#0b1928] px-8 py-12 text-center text-white md:px-14">
+            <div className="ambient-ring blob left-8 top-6 h-24 w-24 bg-accent/20" />
             <div className="relative">
               <h2 className="text-3xl font-black md:text-4xl">Ready to build a stronger career path?</h2>
               <p className="mx-auto mt-4 max-w-xl leading-7 text-white/60">

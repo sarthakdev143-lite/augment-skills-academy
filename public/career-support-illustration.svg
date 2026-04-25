@@ -1,0 +1,30 @@
+<svg width="760" height="520" viewBox="0 0 760 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="760" height="520" rx="36" fill="#0B1928"/>
+  <circle cx="120" cy="108" r="82" fill="#0F7F78" fill-opacity="0.18"/>
+  <circle cx="632" cy="100" r="92" fill="#E36A2F" fill-opacity="0.16"/>
+  <circle cx="654" cy="420" r="120" fill="#F6C46E" fill-opacity="0.15"/>
+  <rect x="58" y="62" width="644" height="396" rx="28" fill="#10253C" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="100" y="108" width="236" height="304" rx="24" fill="#FDF8F2"/>
+  <rect x="132" y="146" width="112" height="18" rx="9" fill="#0E1E33"/>
+  <rect x="132" y="186" width="172" height="14" rx="7" fill="#0E1E33" fill-opacity="0.22"/>
+  <rect x="132" y="216" width="146" height="14" rx="7" fill="#0E1E33" fill-opacity="0.18"/>
+  <rect x="132" y="256" width="172" height="48" rx="18" fill="#E36A2F"/>
+  <rect x="132" y="322" width="172" height="14" rx="7" fill="#0E1E33" fill-opacity="0.12"/>
+  <rect x="132" y="352" width="146" height="14" rx="7" fill="#0E1E33" fill-opacity="0.12"/>
+  <g>
+    <rect x="388" y="116" width="266" height="118" rx="24" fill="#122B45"/>
+    <circle cx="434" cy="174" r="24" fill="#44B7AF"/>
+    <path d="M426 174L432 180L444 166" stroke="#0B1928" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="478" y="150" width="124" height="16" rx="8" fill="#FDF8F2" fill-opacity="0.86"/>
+    <rect x="478" y="182" width="88" height="12" rx="6" fill="#FDF8F2" fill-opacity="0.22"/>
+  </g>
+  <g>
+    <rect x="388" y="256" width="266" height="146" rx="24" fill="#122B45"/>
+    <path d="M430 362L476 318L520 338L572 286L614 314" stroke="#F6C46E" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="430" cy="362" r="10" fill="#F6C46E"/>
+    <circle cx="476" cy="318" r="10" fill="#44B7AF"/>
+    <circle cx="520" cy="338" r="10" fill="#E36A2F"/>
+    <circle cx="572" cy="286" r="10" fill="#F6C46E"/>
+    <circle cx="614" cy="314" r="10" fill="#44B7AF"/>
+  </g>
+</svg>

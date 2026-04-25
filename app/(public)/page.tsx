@@ -120,7 +120,7 @@ export default async function HomePage() {
         <div className="grid gap-6 md:grid-cols-3">
           {learningPillars.map((pillar, index) => (
             <Reveal key={pillar.title} delay={index * 0.07}>
-              <div className="rounded-3xl border border-border bg-surface p-7">
+              <div className="rounded-3xl border border-border bg-surface p-7 shadow-[0_12px_40px_rgba(26,18,9,0.08)] card-hover-glow">
                 <p className="text-[10px] font-black uppercase tracking-[0.22em] text-accent">{pillar.eyebrow}</p>
                 <h3 className="mt-4 text-2xl font-black text-foreground">{pillar.title}</h3>
                 <p className="mt-4 text-sm leading-7 text-muted">{pillar.description}</p>
@@ -130,12 +130,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16">
+      <section className="mx-auto max-w-7xl px-6 py-20 my-10 rounded-[40px] bg-[#0a111a] text-white">
         <Reveal>
           <div className="mb-14">
-            <Badge>Our Mentors</Badge>
-            <h2 className="mt-4 text-4xl font-black md:text-5xl">Learn from industry professionals who've been there</h2>
-            <p className="mt-4 max-w-3xl text-lg text-muted">
+            <Badge className="bg-white/10 text-white hover:bg-white/20 border-white/10">Our Mentors</Badge>
+            <h2 className="mt-4 text-4xl font-black md:text-5xl text-white">Learn from industry professionals who've been there</h2>
+            <p className="mt-4 max-w-3xl text-lg text-white/70">
               We partner with experienced engineers, product leads, and growth professionals who mentor you through structured paths. No celebrities - just people who do this work every day.
             </p>
           </div>
@@ -158,10 +158,10 @@ export default async function HomePage() {
               body: "Our mentors guide you behind the scenes - your growth is what's front and center",
             },
           ].map((item) => (
-            <div key={item.title} className="rounded-3xl border border-border bg-surface p-7">
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent">{item.icon}</div>
-              <h3 className="text-xl font-black text-foreground">{item.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
+            <div key={item.title} className="rounded-3xl border border-white/10 bg-white/5 p-7 shadow-2xl">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-accent-3">{item.icon}</div>
+              <h3 className="text-xl font-black text-white">{item.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-white/70">{item.body}</p>
             </div>
           ))}
         </div>
@@ -194,7 +194,7 @@ export default async function HomePage() {
           <div className="grid gap-5 md:grid-cols-3">
             {testimonials.map((testimonial, index) => (
               <Reveal key={`${testimonial.name}-${index}`} delay={index * 0.07}>
-                <div className="flex h-full flex-col rounded-3xl border border-border bg-background/80 p-7">
+                <div className="flex h-full flex-col rounded-3xl border border-border bg-surface p-7 shadow-[0_16px_48px_rgba(26,18,9,0.1)] card-hover-glow">
                   <p className="flex-1 text-sm leading-7 text-muted">"{testimonial.quote}"</p>
                   <div className="mt-6 border-t border-border pt-5">
                     <p className="text-sm font-black text-foreground">{testimonial.name}</p>

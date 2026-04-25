@@ -22,7 +22,7 @@ export function CourseCard({ course }: CourseCardProps) {
   const style = categoryStyles[course.category] ?? defaultStyle;
 
   return (
-    <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-[0_4px_24px_rgba(26,18,9,0.06)]">
+    <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-[0_16px_48px_rgba(26,18,9,0.12)] card-hover-glow">
       <div
         className="relative overflow-hidden px-6 pb-8 pt-7"
         style={{ background: `linear-gradient(135deg, ${style.accentFrom} 0%, ${style.accentTo} 100%)` }}

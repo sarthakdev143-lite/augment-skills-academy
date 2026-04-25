@@ -31,14 +31,14 @@ export default function ContactPage() {
               "Enrollment support - need help with the process?",
               "Partnerships & collaborations - let's work together",
             ].map((item) => (
-              <Card key={item} className="rounded-[24px] p-5">
+              <Card key={item} className="rounded-3xl p-5">
                 <p className="text-sm text-muted">{item}</p>
               </Card>
             ))}
           </div>
         </div>
 
-        <Card className="rounded-[32px] p-6">
+        <Card className="rounded-4xl p-6">
           <ContactForm />
         </Card>
       </div>

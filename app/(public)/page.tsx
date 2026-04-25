@@ -17,8 +17,8 @@ export default async function HomePage() {
   return (
     <main className="overflow-x-hidden pb-20">
       <section className="relative mx-auto max-w-7xl px-6 pb-8 pt-10 md:pb-14 md:pt-20">
-        <div className="ambient-ring blob left-[-4rem] top-8 h-32 w-32 bg-accent/20" />
-        <div className="ambient-ring blob-delay right-[-2rem] top-28 h-40 w-40 bg-accent-2/18" />
+        <div className="ambient-ring blob -left-16 top-8 h-32 w-32 bg-accent/20" />
+        <div className="ambient-ring blob-delay -right-8 top-28 h-40 w-40 bg-accent-2/18" />
 
         <div className="relative grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
           <Reveal className="space-y-8">
@@ -58,7 +58,7 @@ export default async function HomePage() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <div className="illustration-shell shine-border-card relative rounded-[32px] bg-[#0e1e33] p-4 shadow-[0_32px_80px_rgba(0,0,0,0.30)] md:p-5">
+            <div className="illustration-shell shine-border-card relative rounded-4xl bg-[#0e1e33] p-4 shadow-[0_32px_80px_rgba(0,0,0,0.30)] md:p-5">
               {/* <Image
                 src="/hero-dashboard-illustration.svg"
                 alt="Academy dashboard showing progress, mentoring, and career outcomes"
@@ -67,7 +67,7 @@ export default async function HomePage() {
                 priority
                 className="h-auto w-full rounded-[26px]"
               /> */}
-              <div className=" inset-x-8 bottom-8 rounded-[28px] p-5 backdrop-blur-xl md:inset-x-10 md:p-6">
+              <div className="inset-x-8 bottom-8 rounded-[28px] p-5 backdrop-blur-xl md:inset-x-10 md:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-black/70">
@@ -77,7 +77,7 @@ export default async function HomePage() {
                       Everything you need to move from learning to hiring-ready
                     </h2>
                   </div>
-                  <div className="hidden p-2 aspect-square items-center justify-center rounded-2xl bg-accent text-white md:flex">
+                  <div className="hidden p-2.5 aspect-square items-center justify-center rounded-2xl bg-accent text-white md:flex">
                     <Sparkles size={18} />
                   </div>
                 </div>
@@ -117,7 +117,7 @@ export default async function HomePage() {
             ))}
           </div>
 
-          <div className="mt-8 grid gap-6 rounded-[32px] bg-accent/10 p-6 md:grid-cols-[1fr_320px] md:items-center md:p-8">
+          <div className="mt-8 grid gap-6 rounded-4xl bg-accent/10 p-6 md:grid-cols-[1fr_320px] md:items-center md:p-8">
             <div>
               <h2 className="text-2xl font-black text-foreground">We don't just teach - we help you land</h2>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted">
@@ -201,7 +201,7 @@ export default async function HomePage() {
             ))}
           </div>
           <Reveal delay={0.08}>
-            <div className="gradient-border-card overflow-hidden rounded-[32px] p-4">
+            <div className="gradient-border-card overflow-hidden rounded-4xl p-4">
               <div className="relative overflow-hidden rounded-[26px] bg-[#f7ede0] p-4">
                 <Image
                   src="/mentor-network-illustration.svg"
@@ -285,7 +285,7 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-10">
         <Reveal>
           <div className="relative overflow-hidden rounded-[40px] bg-[#0b1928] px-8 py-14 text-white md:px-14 md:py-16">
-            <div className="ambient-ring blob left-[-1rem] top-[-1rem] h-36 w-36 bg-accent/25" />
+            <div className="ambient-ring blob -left-4 -top-4 h-36 w-36 bg-accent/25" />
             <div className="ambient-ring blob-delay right-10 top-8 h-28 w-28 bg-accent-2/20" />
 
             <div className="relative grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
@@ -295,7 +295,7 @@ export default async function HomePage() {
                   Explore the right course, enroll with your preferred track, and let our team guide you through the next step.
                 </p>
               </div>
-              <div className="grid gap-4 md:min-w-[280px]">
+              <div className="grid gap-4 md:min-w-70">
                 <div className="overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-3">
                   <Image
                     src="/career-support-illustration.svg"

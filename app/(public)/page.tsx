@@ -164,7 +164,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 my-10 rounded-[40px] bg-[#0a111a] text-white">
+      <section className="mx-auto max-w-7xl px-10 py-14 my-10 rounded-[40px] bg-[#0a111a] text-white">
         <Reveal>
           <div className="mb-14">
             <Badge className="bg-white/10 text-white hover:bg-white/20 border-white/10">Our Mentors</Badge>
@@ -236,6 +236,43 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-6 py-10">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[40px] bg-[#0b1928] px-8 py-14 text-white md:px-14 md:py-16">
+            <div className="ambient-ring blob -left-4 -top-4 h-36 w-36 bg-accent/25" />
+            <div className="ambient-ring blob-delay right-10 top-8 h-28 w-28 bg-accent-2/20" />
+
+            <div className="relative grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
+              <div>
+                <h2 className="text-3xl font-black leading-tight md:text-5xl">Ready to build your next move?</h2>
+                <p className="mt-5 max-w-lg text-base leading-8 text-white/60">
+                  Explore the right course, enroll with your preferred track, and let our team guide you through the next step.
+                </p>
+              </div>
+              <div className="grid gap-4 md:min-w-70">
+                {/* <div className="overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-3">
+                  <Image
+                    src="/career-support-illustration.svg"
+                    alt="Career outcomes illustration"
+                    width={760}
+                    height={520}
+                    className="h-auto w-full rounded-[22px]"
+                  />
+                </div> */}
+                <div className="flex flex-col gap-3">
+                  <Link href="/courses" className="shimmer-btn inline-flex items-center justify-center rounded-full bg-accent px-8 py-4.5 text-sm font-black text-white">
+                    Explore Courses
+                  </Link>
+                  <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-white/15 px-8 py-4 text-sm font-bold text-white/80">
+                    Get Started
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       <section className="relative overflow-hidden py-16">
         <div className="relative mx-auto max-w-7xl px-6">
           <Reveal>
@@ -280,43 +317,6 @@ export default async function HomePage() {
             </Reveal>
           ))}
         </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-10">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[40px] bg-[#0b1928] px-8 py-14 text-white md:px-14 md:py-16">
-            <div className="ambient-ring blob -left-4 -top-4 h-36 w-36 bg-accent/25" />
-            <div className="ambient-ring blob-delay right-10 top-8 h-28 w-28 bg-accent-2/20" />
-
-            <div className="relative grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
-              <div>
-                <h2 className="text-3xl font-black leading-tight md:text-5xl">Ready to build your next move?</h2>
-                <p className="mt-5 max-w-lg text-base leading-8 text-white/60">
-                  Explore the right course, enroll with your preferred track, and let our team guide you through the next step.
-                </p>
-              </div>
-              <div className="grid gap-4 md:min-w-70">
-                <div className="overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-3">
-                  <Image
-                    src="/career-support-illustration.svg"
-                    alt="Career outcomes illustration"
-                    width={760}
-                    height={520}
-                    className="h-auto w-full rounded-[22px]"
-                  />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <Link href="/courses" className="shimmer-btn inline-flex items-center justify-center rounded-full bg-accent px-8 py-4.5 text-sm font-black text-white">
-                    Explore Courses
-                  </Link>
-                  <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-white/15 px-8 py-4 text-sm font-bold text-white/80">
-                    Get Started
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </section>
     </main>
   );

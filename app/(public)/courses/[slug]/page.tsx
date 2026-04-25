@@ -91,6 +91,18 @@ export default async function CourseDetailPage({ params }: PageProps) {
               })}
             </div>
 
+            <div className="mt-8 inset-x-7 bottom-7 rounded-[28px] border border-white/10 bg-[#081321]/80 p-5 text-white backdrop-blur-xl">
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/60">What's included</p>
+              <div className="mt-4 space-y-3">
+                {signal.support.map((item) => (
+                  <div key={item} className="flex items-start gap-3">
+                    <CircleCheckBig size={16} className="mt-1 text-accent-3" />
+                    <p className="text-sm leading-7 text-white/80">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="mt-8 flex flex-wrap gap-6 text-sm text-muted">
               <span>{course.total_lessons} lessons</span>
               {course.tagline ? <span>{course.tagline}</span> : null}
@@ -107,17 +119,6 @@ export default async function CourseDetailPage({ params }: PageProps) {
                   height={760}
                   className="h-auto w-full rounded-[22px]"
                 />
-                <div className="absolute inset-x-7 bottom-7 rounded-[28px] border border-white/10 bg-[#081321]/80 p-5 text-white backdrop-blur-xl">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/60">What's included</p>
-                  <div className="mt-4 space-y-3">
-                    {signal.support.map((item) => (
-                      <div key={item} className="flex items-start gap-3">
-                        <CircleCheckBig size={16} className="mt-1 text-accent-3" />
-                        <p className="text-sm leading-7 text-white/80">{item}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -152,10 +153,10 @@ export default async function CourseDetailPage({ params }: PageProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-4">
-        <div className="section-shell rounded-[34px] p-5">
+        <div className="section-shell rounded-[34px] p-5 w-fit">
           <div className="flex flex-wrap gap-2">
             {signal.tools.map((tool) => (
-              <span key={tool} className="rounded-full bg-[#132238]/6 px-3 py-1.5 text-xs font-semibold text-muted dark:bg-white/8">
+              <span key={tool} className="rounded-full bg-[#132238]/6 px-3 py-1.5 text-md font-semibold text-muted dark:bg-white/8">
                 {tool}
               </span>
             ))}
@@ -180,7 +181,7 @@ export default async function CourseDetailPage({ params }: PageProps) {
                 alt="Mentor support illustration"
                 width={760}
                 height={640}
-                className="h-auto w-full rounded-[24px]"
+                className="h-auto w-full rounded-3xl"
               />
             </div>
 

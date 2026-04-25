@@ -15,13 +15,13 @@ export default function ContactPage() {
             Whether you have questions about a course, need guidance on which path suits you, or want to explore partnership opportunities - we're here.
           </p>
 
-          <div className="gradient-border-card mt-8 overflow-hidden rounded-[32px] p-4">
+          <div className="gradient-border-card mt-8 overflow-hidden rounded-4xl p-4">
             <Image
               src="/contact-support-illustration.svg"
               alt="Contact and support illustration"
               width={760}
               height={560}
-              className="h-auto w-full rounded-[24px]"
+              className="h-auto w-full rounded-3xl"
             />
           </div>
 

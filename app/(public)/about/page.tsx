@@ -33,7 +33,7 @@ export default function AboutPage() {
   return (
     <main className="overflow-x-hidden pb-20">
       <section className="relative mx-auto max-w-7xl px-6 pb-16 pt-14">
-        <div className="ambient-ring blob left-[-3rem] top-8 h-28 w-28 bg-accent/18" />
+        <div className="ambient-ring blob -left-12 top-8 h-28 w-28 bg-accent/18" />
         <div className="ambient-ring blob-delay right-0 top-10 h-40 w-40 bg-accent-2/15" />
 
         <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
@@ -66,6 +66,28 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-6 py-6">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[40px] bg-[#0b1928] px-8 py-12 text-center text-white md:px-14">
+            <div className="ambient-ring blob left-8 top-6 h-24 w-24 bg-accent/20" />
+            <div className="relative">
+              <h2 className="text-3xl font-black md:text-4xl">Ready to build a stronger career path?</h2>
+              <p className="mx-auto mt-4 max-w-xl leading-7 text-white/60">
+                Explore our mentor-led programs and find the path that maps to the role you want next.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <Link href="/courses" className="shimmer-btn inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-black text-white">
+                  Explore Courses
+                </Link>
+                <Link href="/contact" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 text-sm font-bold text-white/80">
+                  Talk to us
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+      
       <section className="relative py-10">
         <div className="relative mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-3 gap-5">
@@ -121,6 +143,17 @@ export default function AboutPage() {
                   ))}
                 </div>
               </div>
+              <div className="mt-5 rounded-3xl border border-border bg-surface-strong p-6">
+                <h2 className="text-2xl font-black text-foreground">What you get</h2>
+                <div className="mt-5 space-y-3.5 text-sm text-muted">
+                  {["Resume help", "Mock interviews", "Referral network", "Career guidance", "Community"].map((item) => (
+                    <div key={item} className="flex items-start gap-3">
+                      <ArrowRight size={14} className="mt-0.5 text-accent" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </Reveal>
 
             <Reveal delay={0.1}>
@@ -130,45 +163,12 @@ export default function AboutPage() {
                   alt="Mentor network illustration"
                   width={760}
                   height={640}
-                  className="h-auto w-full rounded-[24px]"
+                  className="h-auto w-full rounded-3xl"
                 />
-                <div className="mt-5 rounded-[24px] border border-border bg-surface-strong p-6">
-                  <h2 className="text-2xl font-black text-foreground">What you get</h2>
-                  <div className="mt-5 space-y-3.5 text-sm text-muted">
-                    {["Resume help", "Mock interviews", "Referral network", "Career guidance", "Community"].map((item) => (
-                      <div key={item} className="flex items-start gap-3">
-                        <ArrowRight size={14} className="mt-0.5 text-accent" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             </Reveal>
           </div>
         </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-6">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[40px] bg-[#0b1928] px-8 py-12 text-center text-white md:px-14">
-            <div className="ambient-ring blob left-8 top-6 h-24 w-24 bg-accent/20" />
-            <div className="relative">
-              <h2 className="text-3xl font-black md:text-4xl">Ready to build a stronger career path?</h2>
-              <p className="mx-auto mt-4 max-w-xl leading-7 text-white/60">
-                Explore our mentor-led programs and find the path that maps to the role you want next.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-                <Link href="/courses" className="shimmer-btn inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-black text-white">
-                  Explore Courses
-                </Link>
-                <Link href="/contact" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 text-sm font-bold text-white/80">
-                  Talk to us
-                </Link>
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </section>
     </main>
   );

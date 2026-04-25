@@ -423,7 +423,7 @@ export function getFallbackCourseById(id: string) {
 export const fallbackBlogPosts: BlogPostPreview[] = [
   {
     slug: "ship-full-stack-skill-systems",
-    title: "How to Choose the Right Tech Stack for Your Career in 2025",
+    title: "How to Choose the Right Tech Stack for Your Career in 2026",
     description: "A practical guide to choosing between frontend, backend, DevOps, and AI paths based on demand, strengths, and long-term growth.",
     category: "Career Guides",
     author: "Augment Skills Academy",

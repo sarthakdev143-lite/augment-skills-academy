@@ -32,12 +32,12 @@ const values = [
 export default function AboutPage() {
   return (
     <main className="overflow-x-hidden pb-20">
-      <section className="relative mx-auto max-w-7xl px-6 pb-16 pt-14">
+      <section className="page-shell relative pb-16 pt-14">
         <div className="ambient-ring blob -left-12 top-8 h-28 w-28 bg-accent/18" />
         <div className="ambient-ring blob-delay right-0 top-10 h-40 w-40 bg-accent-2/15" />
 
         <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="relative mx-auto max-w-7xl">
+          <div className="relative">
             <Reveal>
               <Badge>About</Badge>
               <h1 className="mt-5 text-5xl font-black leading-tight text-balance md:text-6xl">Building real careers through real skills</h1>
@@ -66,7 +66,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-6">
+      <section className="page-shell py-6">
         <Reveal>
           <div className="relative overflow-hidden rounded-[40px] bg-[#0b1928] px-8 py-12 text-center text-white md:px-14">
             <div className="ambient-ring blob left-8 top-6 h-24 w-24 bg-accent/20" />
@@ -89,8 +89,8 @@ export default function AboutPage() {
       </section>
       
       <section className="relative py-10">
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-3 gap-5">
+        <div className="page-shell relative">
+          <div className="grid gap-5 sm:grid-cols-3">
             {marketingStats.map((stat, index) => (
               <Reveal key={stat.label} delay={index * 0.07}>
                 <div className="glass-panel rounded-3xl p-6 text-center">
@@ -103,7 +103,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16">
+      <section className="page-shell py-16">
         <Reveal>
           <div className="mb-12">
             <Badge>Our values</Badge>
@@ -124,7 +124,7 @@ export default function AboutPage() {
       </section>
 
       <section className="relative py-14">
-        <div className="relative mx-auto max-w-7xl px-6">
+        <div className="page-shell relative">
           <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
             <Reveal>
               <div className="rounded-3xl bg-[#0e1e33] p-8 text-white">

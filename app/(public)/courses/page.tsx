@@ -37,7 +37,7 @@ export default async function CoursesPage({ searchParams }: PageProps) {
 
   return (
     <main className="overflow-x-hidden pb-20">
-      <section className="relative mx-auto max-w-7xl px-6 pb-10 pt-12">
+      <section className="page-shell relative pb-10 pt-12">
         <div className="ambient-ring blob -left-8 top-6 h-28 w-28 bg-accent/16" />
         <div className="ambient-ring blob-delay right-0 top-10 h-36 w-36 bg-accent-2/14" />
 
@@ -62,9 +62,9 @@ export default async function CoursesPage({ searchParams }: PageProps) {
                   height={560}
                   className="h-auto w-full rounded-[22px]"
                 />
-                <div className="absolute inset-x-8 bottom-8 shine-border-card-dark rounded-3xl p-7 text-black shadow-xl">
+                <div className="mt-4 shine-border-card-dark rounded-3xl p-5 text-black shadow-xl sm:p-7">
                   <p className="mb-5 text-[10px] font-black uppercase tracking-[0.22em] text-black/50">Catalogue signals</p>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid gap-3 sm:grid-cols-3">
                     {catalogSignals.map((signal) => (
                       <div key={signal.label} className="rounded-2xl bg-black/4 p-4 text-center">
                         <div className="mb-2 flex justify-center text-accent">{signal.icon}</div>
@@ -110,7 +110,7 @@ export default async function CoursesPage({ searchParams }: PageProps) {
         </Reveal>
       </section> */}
 
-  <section className="mx-auto max-w-7xl px-6 pb-10">
+  <section className="page-shell pb-10">
         <div className="grid gap-8 lg:grid-cols-3">
           {courses.reverse().map((course, index) => (
             <Reveal key={course.id} delay={index * 0.05}>

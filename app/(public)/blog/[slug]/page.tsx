@@ -34,7 +34,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const { Content, frontmatter } = post;
 
   return (
-    <main className="mx-auto max-w-7xl px-6 py-16">
+    <main className="page-shell py-16">
       <Badge>{frontmatter.category}</Badge>
       <h1 className="mt-4 text-balance text-5xl font-black">
         {frontmatter.title}
@@ -44,15 +44,15 @@ export default async function BlogDetailPage({ params }: PageProps) {
         <span>{formatDate(frontmatter.publishedAt)}</span>
         <span>{frontmatter.readingTime}</span>
       </div>
-  <p className="mt-6 max-w-4xl text-lg leading-8 text-muted">{frontmatter.description}</p>
+      <p className="mt-6 max-w-4xl text-lg leading-8 text-muted">{frontmatter.description}</p>
 
-      <div className="gradient-border-card mt-10 overflow-hidden rounded-[34px] p-4">
+      <div className="gradient-border-card mt-10 max-w-5xl overflow-hidden rounded-[34px] p-4">
         <Image
           src="/article-cover-illustration.svg"
           alt="Article cover illustration"
           width={1200}
           height={680}
-          className="h-auto w-full rounded-[26px]"
+          className="aspect-[16/10] w-full rounded-[26px] object-cover object-top"
         />
       </div>
 

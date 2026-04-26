@@ -13,12 +13,12 @@ const footerNav = [
     ],
   },
   {
-    title: "Learners",
+    title: "Programs",
     links: [
-      { href: "/courses", label: "Courses" },
-      { href: "/about", label: "About" },
-      { href: "/blog", label: "Blog" },
-      { href: "/contact", label: "Contact" },
+      { href: "/courses?category=ai", label: "AI" },
+      { href: "/courses?category=devops", label: "DevOps" },
+      { href: "/courses?category=frontend", label: "Frontend" },
+      { href: "/courses?category=backend", label: "Backend" },
     ],
   },
   {
@@ -33,24 +33,6 @@ const footerNav = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/60">
-      <div className="relative overflow-hidden bg-[linear-gradient(135deg,#081a34_0%,#0d2546_58%,#0b4e88_100%)] px-6 py-16 text-white">
-        <div className="relative mx-auto max-w-7xl rounded-[32px] border border-white/[0.06] bg-white/[0.04] p-8 text-center backdrop-blur-sm md:p-12">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.26em] text-accent-3">Start your journey</p>
-          <h2 className="text-3xl font-black md:text-4xl lg:text-5xl">Build real skills for a real career.</h2>
-          <p className="mt-5 text-base leading-8 text-white/55">
-            Structured paths, mentor reviews, placement support, and a community that stays with you.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Link href="/courses" className="shimmer-btn inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-black text-white">
-              Explore Courses <ArrowRight size={16} />
-            </Link>
-            <Link href="/contact" className="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-bold text-white/75 transition-all hover:bg-white/8">
-              Talk to us
-            </Link>
-          </div>
-        </div>
-      </div>
-
       <div className="bg-background px-6 pb-8 pt-14">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.8fr_1fr_1fr_1fr]">
           <div>

@@ -15,8 +15,8 @@ export default async function HomePage() {
   const featured = courses.filter((course) => course.featured).slice(0, 3);
 
   return (
-    <main className="pb-10 sm:pb-20">
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-4 pb-8 pt-8 sm:pt-10 md:pb-14 md:pt-20">
+    <main className="max-w-7xl mx-auto px-8 pb-10 sm:pb-20">
+      <section className="page-shell relative pb-8 pt-8 sm:pt-10 md:pb-14 md:pt-20">
         <div className="ambient-ring blob -left-16 top-8 h-24 w-24 sm:h-32 sm:w-32 bg-accent/20" />
         <div className="ambient-ring blob-delay -right-8 top-28 h-28 w-28 sm:h-40 sm:w-28 bg-accent-2/18" />
 
@@ -67,7 +67,7 @@ export default async function HomePage() {
                 priority
                 className="h-auto w-full rounded-[26px]"
               />
-              <div className="absolute inset-x-4 sm:inset-x-8 bottom-4 sm:bottom-8 rounded-3xl sm:rounded-[28px] border border-white/12 bg-white/85 p-4 sm:p-5 shadow-[0_24px_48px_rgba(7,26,51,0.18)] backdrop-blur-xl md:inset-x-10 md:p-6">
+              <div className="mt-4 rounded-3xl sm:rounded-[28px] border border-white/12 bg-white/85 p-4 sm:p-5 shadow-[0_24px_48px_rgba(7,26,51,0.18)] backdrop-blur-xl md:p-6">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
                   <div>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 sm:px-3.5 sm:py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-accent">
@@ -100,8 +100,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden py-10">
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+      <section className="section-band relative overflow-hidden py-10">
+        <div className="page-shell relative">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               { value: marketingStats[0].value, label: marketingStats[0].label },
@@ -117,8 +117,8 @@ export default async function HomePage() {
             ))}
           </div>
 
-          <div className="mt-8 grid gap-6 rounded-4xl bg-accent/10 p-6 md:grid-cols-1 md:items-center md:p-8">
-            <div>
+          <div className="mt-8 grid gap-6 rounded-4xl bg-accent/10 p-6 lg:grid-cols-[1fr_0.92fr] lg:items-center md:p-8">
+            <div className="min-w-0">
               <h2 className="text-2xl font-black text-foreground">We don't just teach - we help you land</h2>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted">
                 Every learner gets resume review, mock interviews, referral connections, and career guidance until they reach their goal.
@@ -137,14 +137,14 @@ export default async function HomePage() {
                 alt="Career support illustration showing resume review and placement readiness"
                 width={760}
                 height={520}
-                className="h-auto w-full rounded-[22px]"
+                className="aspect-4/3 w-full rounded-[22px] object-cover object-top"
               />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-4 py-8 sm:py-10">
+      <section className="page-shell py-8 sm:py-10">
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <Reveal>
             <div className="relative overflow-hidden rounded-[28px] sm:rounded-[36px] border border-accent/12 bg-[linear-gradient(180deg,rgba(7,26,51,0.98)_0%,rgba(12,43,84,0.96)_100%)] p-5 sm:p-5 text-white shadow-[0_28px_80px_rgba(7,26,51,0.18)]">
@@ -163,7 +163,7 @@ export default async function HomePage() {
                 Courses, mentor reviews, project checkpoints, and placement preparation all live in one guided flow.
               </p>
 
-              <div className="relative mt-6 sm:mt-8 grid gap-4 md:grid-cols-1 sm:grid-cols-3">
+              <div className="relative mt-6 sm:mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {[
                   {
                     icon: <BookOpenCheck size={18} />,
@@ -195,15 +195,15 @@ export default async function HomePage() {
 
           <Reveal delay={0.08}>
             <div className="gradient-border-card h-full overflow-hidden rounded-[36px] p-4">
-              <div className="grid-pattern relative h-full overflow-hidden rounded-[28px] bg-white p-4 md:p-5">
+              <div className="grid-pattern relative overflow-hidden rounded-[28px] bg-white p-4 md:p-5">
                 <Image
                   src="/placement-blueprint-mockup.svg"
                   alt="Platform mockup showing learner journey, mentor reviews, and placement readiness metrics"
                   width={920}
                   height={760}
-                  className="h-auto w-full rounded-[22px]"
+                  className="aspect-4/3 w-full rounded-[22px] object-cover object-top"
                 />
-                <div className="absolute bottom-7 left-7 rounded-full border border-accent/12 bg-background/90 px-4 py-2 text-sm font-semibold text-foreground shadow-[0_16px_34px_rgba(7,26,51,0.12)] backdrop-blur">
+                <div className="mt-4 inline-flex max-w-full rounded-full border border-accent/12 bg-background/90 px-4 py-2 text-sm font-semibold text-foreground shadow-[0_16px_34px_rgba(7,26,51,0.12)] backdrop-blur">
                   Dashboard + mentor workflow + placement pipeline
                 </div>
               </div>
@@ -212,7 +212,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-16">
+      <section className="page-shell py-10 sm:py-16">
         <Reveal>
           <div className="mb-14">
             <Badge>Why it works</Badge>
@@ -232,7 +232,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto my-10 max-w-7xl rounded-[40px] bg-[linear-gradient(180deg,#081a34_0%,#0d2546_100%)] px-5 sm:px-10 py-10 sm:py-14 text-white">
+      <section className="page-shell my-10">
+        <div className="rounded-[40px] bg-[linear-gradient(180deg,#081a34_0%,#0d2546_100%)] px-5 sm:px-10 py-10 sm:py-14 text-white">
         <Reveal>
           <div className="mb-14">
             <Badge className="bg-white/10 text-white hover:bg-white/20 border-white/10">Our Mentors</Badge>
@@ -261,10 +262,10 @@ export default async function HomePage() {
                 body: "Our mentors guide you behind the scenes - your growth is what's front and center",
               },
             ].map((item) => (
-              <div key={item.title} className="rounded-3xl border border-border bg-surface p-5 sm:p-7">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent">{item.icon}</div>
-                <h3 className="text-xl font-black text-foreground">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
+              <div key={item.title} className="rounded-3xl border border-white/10 bg-white/8 p-5 sm:p-7 backdrop-blur-sm">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-accent-2">{item.icon}</div>
+                <h3 className="text-xl font-black text-white">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/68">{item.body}</p>
               </div>
             ))}
           </div>
@@ -276,7 +277,7 @@ export default async function HomePage() {
                   alt="Mentor network illustration representing guided cohort learning"
                   width={760}
                   height={640}
-                  className="h-auto w-full rounded-[22px]"
+                  className="aspect-4/3 w-full rounded-[22px] object-cover object-top"
                 />
                 <div className="absolute bottom-7 left-7 inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-background/85 px-4 py-2 text-sm font-semibold text-foreground shadow-[0_14px_40px_rgba(20,14,5,0.12)] backdrop-blur">
                   Cohort guidance
@@ -286,9 +287,10 @@ export default async function HomePage() {
             </div>
           </Reveal>
         </div>
+        </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-16">
+      <section className="page-shell py-10 sm:py-16">
         <Reveal>
           <div className="mb-14 text-center">
             <Badge>Courses</Badge>
@@ -304,27 +306,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
+      <section className="page-shell py-10">
         <Reveal>
           <div className="relative overflow-hidden rounded-[40px] bg-[linear-gradient(135deg,#081a34_0%,#0f2a56_58%,#0b4e88_100%)] px-5 sm:px-8 py-10 sm:py-14 text-white md:px-14 md:py-10">
             <div className="ambient-ring blob -left-4 -top-4 h-36 w-36 bg-accent/25" />
             <div className="ambient-ring blob-delay right-10 top-8 h-28 w-28 bg-accent-2/20" />
 
-            <div className="relative grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
+            <div className="relative grid gap-10 lg:grid-cols-[0.82fr_1fr] lg:items-center">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-black leading-tight md:text-5xl">Ready to build your next move?</h2>
                 <p className="mt-5 max-w-lg text-base leading-8 text-white/60">
                   Explore the right course, enroll with your preferred track, and let our team guide you through the next step.
                 </p>
               </div>
-              <div className="grid gap-4 md:min-w-70">
+              <div className="grid gap-4">
                 <div className="overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-3">
                   <Image
                     src="/catalog-grid-illustration.svg"
                     alt="Course catalog illustration"
                     width={720}
                     height={520}
-                    className="h-auto w-full rounded-[22px]"
+                    className="aspect-4/3 w-full rounded-[22px] object-cover object-top"
                   />
                 </div>
                 <div className="flex flex-col gap-3">
@@ -342,7 +344,7 @@ export default async function HomePage() {
       </section>
 
       <section className="relative overflow-hidden py-10 sm:py-16">
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="page-shell relative">
           <Reveal>
             <div className="mb-14 text-center">
               <Badge>Reviews</Badge>

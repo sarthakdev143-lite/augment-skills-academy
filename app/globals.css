@@ -356,6 +356,33 @@ h1, h2, h3, h4 {
   box-shadow: 0 14px 36px rgba(7, 26, 51, 0.06);
 }
 
+.page-shell {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1rem;
+}
+
+.section-band {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(245, 251, 255, 0.68) 0%, rgba(237, 246, 255, 0.12) 100%);
+}
+
+@media (min-width: 640px) {
+  .page-shell {
+    padding-inline: 1.5rem;
+  }
+}
+
 @layer base {
   * { @apply border-border; }
   body { @apply bg-background text-foreground; }

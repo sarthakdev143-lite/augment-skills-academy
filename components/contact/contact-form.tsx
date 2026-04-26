@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
+import { useActionState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { submitContactAction } from "@/app/(public)/contact/actions";
@@ -14,55 +14,79 @@ import type { ServerActionState } from "@/types";
 const schema = z.object({
   name: z.string().min(2, "Please enter your name."),
   email: z.string().email("Enter a valid email address."),
+  phone: z.string().min(10, "Enter at least 10 digits."),
   message: z.string().min(20, "Please share a bit more context."),
 });
 
 type FormValues = z.infer<typeof schema>;
 
 export function ContactForm() {
-  const [isPending, startTransition] = useTransition();
-  const [state, setState] = React.useState<ServerActionState>({ status: "idle" });
+  const [state, formAction, isPending] = useActionState<ServerActionState, FormData>(
+    submitContactAction,
+    { status: "idle" },
+  );
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
       email: "",
+      phone: "",
       message: "",
     },
   });
+  const serverFieldErrors = state.fieldErrors ?? {};
 
-  const onSubmit = form.handleSubmit((values) => {
-    startTransition(async () => {
-      const result = await submitContactAction(values);
-      setState(result);
-      if (result.status === "success") {
-        form.reset();
-      }
-    });
-  });
+  React.useEffect(() => {
+    if (state.status === "success") {
+      form.reset();
+    }
+  }, [form, state.status]);
 
   return (
-    <form className="space-y-4" onSubmit={onSubmit}>
+    <form className="space-y-4" action={formAction}>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Name</label>
-          <Input {...form.register("name")} />
-          {form.formState.errors.name ? <p className="text-sm text-rose-400">{form.formState.errors.name.message}</p> : null}
+          <label htmlFor="contact-name" className="text-sm font-medium">Name</label>
+          <Input id="contact-name" required autoComplete="name" {...form.register("name")} />
+          {form.formState.errors.name?.message || serverFieldErrors.name?.[0] ? (
+            <p className="text-sm text-rose-400">{form.formState.errors.name?.message ?? serverFieldErrors.name?.[0]}</p>
+          ) : null}
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Email</label>
-          <Input type="email" {...form.register("email")} />
-          {form.formState.errors.email ? <p className="text-sm text-rose-400">{form.formState.errors.email.message}</p> : null}
+          <label htmlFor="contact-email" className="text-sm font-medium">Email</label>
+          <Input id="contact-email" type="email" required autoComplete="email" {...form.register("email")} />
+          {form.formState.errors.email?.message || serverFieldErrors.email?.[0] ? (
+            <p className="text-sm text-rose-400">{form.formState.errors.email?.message ?? serverFieldErrors.email?.[0]}</p>
+          ) : null}
         </div>
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Message</label>
+        <label htmlFor="contact-phone" className="text-sm font-medium">Phone Number</label>
+        <Input
+          id="contact-phone"
+          type="tel"
+          required
+          autoComplete="tel"
+          placeholder="+91 98765 43210"
+          {...form.register("phone")}
+        />
+        {form.formState.errors.phone?.message || serverFieldErrors.phone?.[0] ? (
+          <p className="text-sm text-rose-400">{form.formState.errors.phone?.message ?? serverFieldErrors.phone?.[0]}</p>
+        ) : null}
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="contact-message" className="text-sm font-medium">Message</label>
         <Textarea
+          id="contact-message"
+          required
           {...form.register("message")}
           placeholder="Tell us about your goals, which course you're interested in, or any questions you have..."
         />
-        {form.formState.errors.message ? <p className="text-sm text-rose-400">{form.formState.errors.message.message}</p> : null}
+        {form.formState.errors.message?.message || serverFieldErrors.message?.[0] ? (
+          <p className="text-sm text-rose-400">{form.formState.errors.message?.message ?? serverFieldErrors.message?.[0]}</p>
+        ) : null}
       </div>
 
       {state.message && state.status !== "idle" ? (

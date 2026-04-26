@@ -6,7 +6,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      {children}
+      <div className="mx-auto max-w-7xl px-6">{children}</div>
       <SiteFooter />
     </div>
   );

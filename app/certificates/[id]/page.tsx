@@ -12,7 +12,7 @@ export default async function CertificateVerificationPage({ params }: PageProps)
   const data = await getCertificateVerificationRecord(id);
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <main className="mx-auto max-w-7xl px-6 py-16">
       <Badge>Verification</Badge>
       <h1 className="mt-4 text-4xl font-semibold">Certificate verification</h1>
       {data ? (

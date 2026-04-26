@@ -39,9 +39,11 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3.5">
         <Link href="/" className="group flex items-center gap-3">
-          <Image src="/brand-mark.png" alt="Augment Skills Academy" width={38} height={38} priority />
+          <div className="logo-pill flex h-11 w-11 items-center justify-center rounded-2xl shadow-[0_10px_26px_rgba(17,136,232,0.10)]">
+            <Image src="/brand-mark.png" alt="Augment Skills Academy" width={32} height={32} priority />
+          </div>
           <div className="hidden sm:block leading-none">
-            <p className="text-[9px] font-black uppercase tracking-[0.28em] text-muted/80">Augment Skill</p>
+            <p className="text-[9px] font-black uppercase tracking-[0.28em] text-accent/75">Augment Skills</p>
             <p className="text-[13px] font-black tracking-tight text-foreground">Academy</p>
           </div>
         </Link>

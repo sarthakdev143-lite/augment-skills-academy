@@ -110,7 +110,7 @@ export default async function CoursesPage({ searchParams }: PageProps) {
         </Reveal>
       </section> */}
 
-      <section className="mx-auto max-w-350 px-6 pb-10">
+  <section className="mx-auto max-w-7xl px-6 pb-10">
         <div className="grid gap-8 lg:grid-cols-3">
           {courses.reverse().map((course, index) => (
             <Reveal key={course.id} delay={index * 0.05}>

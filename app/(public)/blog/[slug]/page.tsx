@@ -34,7 +34,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const { Content, frontmatter } = post;
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16">
+    <main className="mx-auto max-w-7xl px-6 py-16">
       <Badge>{frontmatter.category}</Badge>
       <h1 className="mt-4 text-balance text-5xl font-black">
         {frontmatter.title}
@@ -44,7 +44,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
         <span>{formatDate(frontmatter.publishedAt)}</span>
         <span>{frontmatter.readingTime}</span>
       </div>
-      <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">{frontmatter.description}</p>
+  <p className="mt-6 max-w-4xl text-lg leading-8 text-muted">{frontmatter.description}</p>
 
       <div className="gradient-border-card mt-10 overflow-hidden rounded-[34px] p-4">
         <Image

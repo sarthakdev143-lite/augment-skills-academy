@@ -29,7 +29,7 @@ export default async function AdminPage() {
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
-      <div className="max-w-3xl">
+      <div className="max-w-7xl">
         <h1 className="text-4xl font-semibold">Admin overview</h1>
         <p className="mt-4 text-lg leading-8 text-muted">Review enrollment requests, contact submissions, and quick summary stats from one place.</p>
       </div>
@@ -97,6 +97,7 @@ export default async function AdminPage() {
                       <div>
                         <p className="font-medium">{item.name}</p>
                         <p className="text-sm text-muted">{item.email}</p>
+                        <p className="text-sm text-muted">{item.phone}</p>
                       </div>
                       <p className="max-w-xl text-sm text-muted">{item.message.slice(0, 100)}{item.message.length > 100 ? "..." : ""}</p>
                       <span className="text-sm text-muted">{formatDate(item.created_at)}</span>

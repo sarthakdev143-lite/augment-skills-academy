@@ -101,6 +101,15 @@ create table if not exists notifications (
   created_at timestamptz not null default now()
 );
 
+create table if not exists contact_submissions (
+  id uuid primary key default uuid_generate_v4(),
+  name text not null,
+  email text not null,
+  phone text not null,
+  message text not null,
+  created_at timestamptz not null default now()
+);
+
 create table if not exists posts (
   id uuid primary key default uuid_generate_v4(),
   slug text unique not null,
@@ -144,6 +153,7 @@ alter table certificates enable row level security;
 alter table reviews enable row level security;
 alter table coupons enable row level security;
 alter table notifications enable row level security;
+alter table contact_submissions enable row level security;
 alter table posts enable row level security;
 alter table lesson_notes enable row level security;
 alter table bookmarks enable row level security;
@@ -294,6 +304,11 @@ with check (((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'));
 
 create policy "admin full access notifications"
 on notifications for all
+using (((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'))
+with check (((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'));
+
+create policy "admin full access contact_submissions"
+on contact_submissions for all
 using (((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'))
 with check (((auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'));
 

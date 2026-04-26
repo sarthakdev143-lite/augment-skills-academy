@@ -37,7 +37,7 @@ export default function AboutPage() {
         <div className="ambient-ring blob-delay right-0 top-10 h-40 w-40 bg-accent-2/15" />
 
         <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="relative max-w-3xl">
+          <div className="relative mx-auto max-w-7xl">
             <Reveal>
               <Badge>About</Badge>
               <h1 className="mt-5 text-5xl font-black leading-tight text-balance md:text-6xl">Building real careers through real skills</h1>

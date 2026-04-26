@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Manrope, Outfit } from "next/font/google";
+import { Manrope, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
 
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
 });
 
@@ -50,9 +45,8 @@ export default function RootLayout({
         "h-full",
         "antialiased",
         "font-sans",
-        geist.variable,
         manrope.variable,
-        outfit.variable,
+        spaceGrotesk.variable,
       )}
     >
       <body className="min-h-full bg-background text-foreground">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Globe, Mail, Share2 } from "lucide-react";
 
@@ -32,7 +33,7 @@ const footerNav = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/60">
-      <div className="relative overflow-hidden bg-[#0b1928] px-6 py-16 text-white">
+      <div className="relative overflow-hidden bg-[linear-gradient(135deg,#081a34_0%,#0d2546_58%,#0b4e88_100%)] px-6 py-16 text-white">
         <div className="relative mx-auto max-w-7xl rounded-[32px] border border-white/[0.06] bg-white/[0.04] p-8 text-center backdrop-blur-sm md:p-12">
           <p className="mb-3 text-[10px] font-black uppercase tracking-[0.26em] text-accent-3">Start your journey</p>
           <h2 className="text-3xl font-black md:text-4xl lg:text-5xl">Build real skills for a real career.</h2>
@@ -53,7 +54,12 @@ export function SiteFooter() {
       <div className="bg-background px-6 pb-8 pt-14">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.8fr_1fr_1fr_1fr]">
           <div>
-            <p className="text-base font-black tracking-tight text-foreground">Augment Skills Academy</p>
+            <div className="flex items-center gap-3">
+              <div className="logo-pill flex h-11 w-11 items-center justify-center rounded-2xl shadow-[0_10px_26px_rgba(17,136,232,0.10)]">
+                <Image src="/brand-mark.png" alt="Augment Skills Academy" width={30} height={30} />
+              </div>
+              <p className="text-base font-black tracking-tight text-foreground">Augment Skills Academy</p>
+            </div>
             <p className="mt-3 max-w-xs text-sm leading-7 text-muted">
               Mentor-led learning paths for AI, DevOps, frontend, backend, and custom career tracks.
             </p>
@@ -86,7 +92,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mx-auto mt-12 flex max-w-7xl flex-col items-start justify-between gap-3 border-t border-border/60 pt-6 sm:flex-row sm:items-center">
-          <p className="text-xs text-muted/60">© 2026 Augment Skill Academy</p>
+          <p className="text-xs text-muted/60">(c) 2026 Augment Skills Academy</p>
           <div className="flex gap-5 text-xs text-muted/50">
             <Link href="#" className="transition-colors hover:text-muted">Privacy</Link>
             <Link href="#" className="transition-colors hover:text-muted">Terms</Link>

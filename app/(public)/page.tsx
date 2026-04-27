@@ -219,7 +219,7 @@ export default async function HomePage() {
             <h2 className="mt-4 text-3xl sm:text-4xl font-black md:text-5xl">Structured learning, practical work, career direction</h2>
           </div>
         </Reveal>
-        <div className="grid gap-6 md:grid-cols-1 sm:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {learningPillars.map((pillar, index) => (
             <Reveal key={pillar.title} delay={index * 0.07}>
               <div className="rounded-3xl border border-border bg-surface p-5 sm:p-7 shadow-[0_12px_40px_rgba(26,18,9,0.08)] card-hover-glow">

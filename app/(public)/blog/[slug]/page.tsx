@@ -34,7 +34,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const { Content, frontmatter } = post;
 
   return (
-    <main className="page-shell py-16">
+    <main className="page-shell py-16 px-2">
       <Badge>{frontmatter.category}</Badge>
       <h1 className="mt-4 text-balance text-5xl font-black">
         {frontmatter.title}
@@ -52,7 +52,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
           alt="Article cover illustration"
           width={1200}
           height={680}
-          className="aspect-[16/10] w-full rounded-[26px] object-cover object-top"
+          className="aspect-16/10 w-full rounded-[26px] object-cover object-top"
         />
       </div>
 

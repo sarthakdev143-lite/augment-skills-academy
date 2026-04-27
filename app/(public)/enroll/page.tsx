@@ -104,7 +104,7 @@ export default function EnrollPage() {
   return (
     <main className="mx-auto max-w-7xl px-6 py-16">
       <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
-        <div className="rounded-[32px] border border-border bg-surface p-8">
+        <div className="rounded-4xl border border-border bg-surface p-8">
           <Badge>Enrollment</Badge>
           <h1 className="mt-4 text-4xl font-black text-foreground">{selectedCourse?.title ?? "Choose your course"}</h1>
           <p className="mt-4 text-sm leading-7 text-muted">

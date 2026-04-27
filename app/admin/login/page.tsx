@@ -34,7 +34,7 @@ export default async function AdminLoginPage({
 
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-16">
-      <div className="w-full max-w-md rounded-[32px] border border-border bg-background p-8">
+      <div className="w-full max-w-md rounded-4xl border border-border bg-background p-8">
         <h1 className="text-3xl font-black text-foreground">Admin Login</h1>
         <p className="mt-3 text-sm leading-7 text-muted">Enter the admin password to access enrollment and contact submissions.</p>
         <form action={loginAction} className="mt-6 space-y-4">

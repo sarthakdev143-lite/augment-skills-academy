@@ -11,7 +11,7 @@ export default async function BlogPage() {
   const posts = await listBlogPosts();
 
   return (
-    <main className="page-shell py-16">
+    <main className="page-shell py-16 px-2">
       <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
         <div className="max-w-3xl">
           <Badge>Resources</Badge>
@@ -27,7 +27,7 @@ export default async function BlogPage() {
               alt="Editorial illustration for academy resources"
               width={1200}
               height={680}
-              className="aspect-[16/10] w-full rounded-[26px] object-cover object-top"
+              className="aspect-16/10 w-full rounded-[26px] object-cover object-top"
             />
           </div>
         </Reveal>

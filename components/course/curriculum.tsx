@@ -11,7 +11,7 @@ export function Curriculum({ modules }: CurriculumProps) {
   return (
     <div className="space-y-4">
       {modules.map((module) => (
-        <Card key={module.id} className="rounded-[24px] p-0">
+        <Card key={module.id} className="rounded-3xl p-0">
           <details className="group" open={module.position === 1}>
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
               <div>

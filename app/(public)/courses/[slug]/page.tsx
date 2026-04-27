@@ -65,7 +65,7 @@ export default async function CourseDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <main className="overflow-x-hidden pb-16">
+    <main className="pb-16">
       <section className="mx-auto max-w-7xl px-6 py-10 md:py-14">
         <div className="grid gap-8 xl:grid-cols-[1.04fr_0.96fr] xl:items-start">
           <div>

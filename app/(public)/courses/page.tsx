@@ -36,7 +36,7 @@ export default async function CoursesPage({ searchParams }: PageProps) {
   ];
 
   return (
-    <main className="overflow-x-hidden pb-20">
+    <main className="pb-20">
       <section className="page-shell relative pb-10 pt-12">
         <div className="ambient-ring blob -left-8 top-6 h-28 w-28 bg-accent/16" />
         <div className="ambient-ring blob-delay right-0 top-10 h-36 w-36 bg-accent-2/14" />

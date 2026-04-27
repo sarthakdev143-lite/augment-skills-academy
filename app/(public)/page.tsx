@@ -15,7 +15,7 @@ export default async function HomePage() {
   const featured = courses.filter((course) => course.featured).slice(0, 3);
 
   return (
-    <main className="max-w-7xl mx-auto px-8 pb-10 sm:pb-20">
+    <main className="max-w-7xl mx-auto px-2 sm:px-8 pb-10 sm:pb-20">
       <section className="page-shell relative pb-8 pt-8 sm:pt-10 md:pb-14 md:pt-20">
         <div className="ambient-ring blob -left-16 top-8 h-24 w-24 sm:h-32 sm:w-32 bg-accent/20" />
         <div className="ambient-ring blob-delay -right-8 top-28 h-28 w-28 sm:h-40 sm:w-28 bg-accent-2/18" />
@@ -297,7 +297,7 @@ export default async function HomePage() {
             <h2 className="mt-4 text-3xl sm:text-4xl font-black md:text-5xl">Choose your path</h2>
           </div>
         </Reveal>
-        <div className="grid gap-5 sm:gap-6 lg:grid-cols-3">
+        <div className="flex gap-5 sm:gap-6 flex-row-reverse max-lg:flex-wrap-reverse justify-center">
           {featured.map((course, index) => (
             <Reveal key={course.id} delay={index * 0.05}>
               <CourseCard course={course} />
@@ -351,7 +351,7 @@ export default async function HomePage() {
               <h2 className="mt-4 text-3xl sm:text-4xl font-black md:text-5xl">What learners say</h2>
             </div>
           </Reveal>
-          <div className="grid gap-5 md:grid-cols-1 sm:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-3">
             {testimonials.map((testimonial, index) => (
               <Reveal key={`${testimonial.name}-${index}`} delay={index * 0.07}>
                 <div className="flex h-full flex-col rounded-3xl border border-border bg-surface p-5 sm:p-7 shadow-[0_16px_48px_rgba(26,18,9,0.1)] card-hover-glow">

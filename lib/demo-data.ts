@@ -25,9 +25,24 @@ export const marketingStats = [
 // Each entry: { name: string, role: string, quote: string }
 // Add or remove items freely - the grid auto-adjusts.
 export const testimonials = [
-  { name: "Student Name", role: "Role at Company", quote: "Your testimonial here." },
-  { name: "Student Name", role: "Role at Company", quote: "Your testimonial here." },
-  { name: "Student Name", role: "Role at Company", quote: "Your testimonial here." },
+  {
+    name: "Aarav Sharma",
+    role: "Frontend Developer at Infosys",
+    quote:
+      "This course completely changed the way I approach web development. The projects were practical, easy to follow, and helped me land my first developer role within 3 months."
+  },
+  {
+    name: "Priya Verma",
+    role: "Software Engineer at TCS",
+    quote:
+      "I loved how every concept was explained with real-world examples. The mentorship and guidance gave me the confidence to crack technical interviews successfully."
+  },
+  {
+    name: "Rohan Mehta",
+    role: "Full Stack Developer at Wipro",
+    quote:
+      "One of the best learning experiences I’ve had. The structured roadmap, hands-on assignments, and portfolio projects made my resume stand out to recruiters."
+  },
 ];
 
 export const learningPillars = [

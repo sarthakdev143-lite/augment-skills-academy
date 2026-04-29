@@ -43,7 +43,7 @@ export function SiteHeader() {
             <Image src="/brand-mark.png" alt="Augment Skills Academy" width={32} height={32} priority />
           </div>
           <div className="hidden sm:block leading-none">
-            <p className="text-[9px] font-black uppercase tracking-[0.28em] text-accent/75">Augment</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.28em] text-accent">Augment</p>
             <p className="text-[13px] font-black tracking-tight text-foreground">Skills Academy</p>
           </div>
         </Link>

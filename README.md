@@ -93,6 +93,27 @@ See [.env.examples](./.env.examples) for the current template.
 - `npm run typecheck`
 - `npm run build`
 
+## Production launch checklist
+
+1. Run `npm run lint`, `npm run typecheck`, and `npm run build` locally before deploying.
+2. In Supabase SQL Editor, run:
+   - `supabase/schema.sql`
+   - `supabase/enrollment-schema.sql`
+   - `supabase/seed.sql` only if you want the demo seed content
+3. Set production environment variables on your host:
+   - `NEXT_PUBLIC_APP_URL`
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `ADMIN_PASSWORD`
+   - `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `SUPPORT_EMAIL` if you want email delivery and fallback routing
+4. Verify these public flows in the deployed app:
+   - `/admin/login` loads and `/admin` redirects there when signed out
+   - `/contact` submits successfully
+   - `/enroll?course=<slug>` submits successfully
+   - submissions appear in `/admin`
+5. If the admin page shows a schema warning, the website is not ready for launch yet. Apply the missing SQL in Supabase first.
+
 ## Project structure
 
 - `app/(public)` public-facing routes

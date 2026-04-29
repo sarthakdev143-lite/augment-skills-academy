@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { createSupabaseAdminClient, createSupabaseServerClient } from "@/lib/supabase/server";
+import { getSupabaseSchemaStatus } from "@/lib/supabase/schema";
 import {
   fallbackCourseDetails,
   fallbackCourses,
@@ -186,6 +187,11 @@ export async function listEnrollmentRequests(): Promise<EnrollmentRequest[]> {
     return [];
   }
 
+  const schemaStatus = await getSupabaseSchemaStatus();
+  if (schemaStatus.status !== "ready") {
+    return [];
+  }
+
   const supabase = createSupabaseAdminClient();
   const { data } = await supabase
     .from("enrollment_requests")
@@ -197,6 +203,11 @@ export async function listEnrollmentRequests(): Promise<EnrollmentRequest[]> {
 
 export async function listContactSubmissions(): Promise<ContactSubmission[]> {
   if (!isSupabaseConfigured()) {
+    return [];
+  }
+
+  const schemaStatus = await getSupabaseSchemaStatus();
+  if (schemaStatus.status !== "ready") {
     return [];
   }
 

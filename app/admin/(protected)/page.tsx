@@ -2,6 +2,7 @@ import { Inbox, Mail, CalendarDays } from "lucide-react";
 import { KpiCard } from "@/components/admin/kpi-card";
 import { Card } from "@/components/ui/card";
 import { listContactSubmissions, listEnrollmentRequests } from "@/lib/courses";
+import { getSupabaseSchemaStatus } from "@/lib/supabase/schema";
 import { formatDate } from "@/lib/utils";
 import { isSupabaseConfigured } from "@/lib/env";
 
@@ -15,9 +16,10 @@ function startOfWeek(date: Date) {
 }
 
 export default async function AdminPage() {
-  const [enrollments, contacts] = await Promise.all([
+  const [enrollments, contacts, schemaStatus] = await Promise.all([
     listEnrollmentRequests(),
     listContactSubmissions(),
+    getSupabaseSchemaStatus(),
   ]);
 
   const thisWeek = startOfWeek(new Date()).getTime();
@@ -39,6 +41,32 @@ export default async function AdminPage() {
         <KpiCard label="Contact Messages" value={String(contacts.length)} hint="All contact form submissions" icon={<Mail size={20} />} />
         <KpiCard label="This Week's Enrollments" value={String(thisWeekEnrollments.length)} hint="Submitted since Monday" icon={<CalendarDays size={20} />} />
       </div>
+
+      {schemaStatus.status === "missing_schema" ? (
+        <Card className="mt-8 border-amber-300/70 bg-amber-50/70">
+          <h2 className="text-xl font-semibold text-amber-950">Database setup incomplete</h2>
+          <p className="mt-3 text-sm leading-7 text-amber-900">
+            This admin panel is connected to Supabase, but the required tables have not been created in the current project yet.
+            Public forms can still route submissions to your support inbox when email is configured, but they will not appear here until the schema is applied.
+          </p>
+          <p className="mt-3 text-sm text-amber-950">
+            Missing tables: {schemaStatus.missingTables.join(", ")}
+          </p>
+          <p className="mt-3 text-sm text-amber-900">
+            Apply <code>supabase/schema.sql</code> and <code>supabase/enrollment-schema.sql</code> in your Supabase SQL editor before production launch.
+          </p>
+        </Card>
+      ) : null}
+
+      {schemaStatus.status === "error" ? (
+        <Card className="mt-8 border-rose-300/70 bg-rose-50/70">
+          <h2 className="text-xl font-semibold text-rose-950">Supabase connection issue</h2>
+          <p className="mt-3 text-sm leading-7 text-rose-900">
+            The admin panel could not verify the current Supabase schema. Check your environment variables and service role key before launch.
+          </p>
+          <p className="mt-3 text-sm text-rose-950">{schemaStatus.message}</p>
+        </Card>
+      ) : null}
 
       <div className="mt-12 space-y-6">
         <Card>

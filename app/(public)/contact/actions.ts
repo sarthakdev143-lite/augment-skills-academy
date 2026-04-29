@@ -4,6 +4,7 @@ import { z } from "zod";
 import { env } from "@/lib/env";
 import { getResendClient } from "@/lib/resend/client";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
+import { getSupabaseSchemaStatus } from "@/lib/supabase/schema";
 import { isSupabaseConfigured } from "@/lib/env";
 import type { ServerActionState } from "@/types";
 
@@ -91,30 +92,33 @@ export async function submitContactAction(_prevState: ServerActionState, formDat
     };
   }
 
+  const schemaStatus = await getSupabaseSchemaStatus();
   let storedInSupabase = false;
   let deliveredByEmail = false;
 
-  try {
-    const supabase = createSupabaseAdminClient();
-    const { error } = await supabase.from("contact_submissions").insert({
-      name: parsed.data.name,
-      email: parsed.data.email,
-      phone: parsed.data.phone,
-      message: parsed.data.message,
-    });
+  if (schemaStatus.status === "ready") {
+    try {
+      const supabase = createSupabaseAdminClient();
+      const { error } = await supabase.from("contact_submissions").insert({
+        name: parsed.data.name,
+        email: parsed.data.email,
+        phone: parsed.data.phone,
+        message: parsed.data.message,
+      });
 
-    if (error) {
-      throw error;
-    }
-    storedInSupabase = true;
-  } catch (error) {
-    console.error("Contact submission failed", error);
+      if (error) {
+        throw error;
+      }
+      storedInSupabase = true;
+    } catch (error) {
+      console.error("Contact submission failed", error);
 
-    if (!isMissingContactSubmissionsTable(error)) {
-      return {
-        status: "error",
-        message: "Unable to submit your message right now.",
-      };
+      if (!isMissingContactSubmissionsTable(error)) {
+        return {
+          status: "error",
+          message: "Unable to submit your message right now.",
+        };
+      }
     }
   }
 
@@ -140,6 +144,8 @@ export async function submitContactAction(_prevState: ServerActionState, formDat
 
   return {
     status: "success",
-    message: `Thanks for reaching out! We'll get back to you at ${parsed.data.email} within 24 hours.`,
+    message: storedInSupabase
+      ? `Thanks for reaching out! We'll get back to you at ${parsed.data.email} within 24 hours.`
+      : `Thanks for reaching out! Your message was routed directly to our team and we'll get back to you at ${parsed.data.email} within 24 hours.`,
   };
 }

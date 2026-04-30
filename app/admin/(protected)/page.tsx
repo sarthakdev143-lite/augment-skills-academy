@@ -127,11 +127,11 @@ export default async function AdminPage() {
                         <p className="text-sm text-muted">{item.email}</p>
                         <p className="text-sm text-muted">{item.phone}</p>
                       </div>
-                      <p className="max-w-xl text-sm text-muted">{item.message.slice(0, 100)}{item.message.length > 100 ? "..." : ""}</p>
+                      <p className="max-w-xl text-sm text-muted">{item.message ? `${item.message.slice(0, 100)}${item.message.length > 100 ? "..." : ""}` : "No message provided"}</p>
                       <span className="text-sm text-muted">{formatDate(item.created_at)}</span>
                     </div>
                   </summary>
-                  <p className="mt-4 text-sm leading-7 text-muted">{item.message}</p>
+                  <p className="mt-4 text-sm leading-7 text-muted">{item.message || "No message provided"}</p>
                 </details>
               ))
             ) : (

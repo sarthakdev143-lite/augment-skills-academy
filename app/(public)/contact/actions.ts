@@ -19,7 +19,7 @@ const contactSchema = z.object({
     .string()
     .trim()
     .refine((value) => getDigitsOnlyPhone(value).length >= 10, "Enter at least 10 digits."),
-  message: z.string().trim().min(20, "Share at least a little detail so we can help well."),
+  message: z.string().trim(),
 });
 
 function isMissingContactSubmissionsTable(error: unknown) {
@@ -28,7 +28,12 @@ function isMissingContactSubmissionsTable(error: unknown) {
   }
 
   const candidate = error as { code?: string; message?: string };
-  return candidate.code === "PGRST205" || candidate.message?.includes("contact_submissions") === true;
+  return (
+    candidate.code === "PGRST205" ||
+    candidate.code === "PGRST204" ||
+    candidate.message?.includes("contact_submissions") === true ||
+    candidate.message?.includes("schema cache") === true
+  );
 }
 
 async function sendSupportNotification(input: z.infer<typeof contactSchema>) {
@@ -51,7 +56,7 @@ async function sendSupportNotification(input: z.infer<typeof contactSchema>) {
       `Phone: ${input.phone}`,
       "",
       "Message:",
-      input.message,
+      input.message || "Not provided",
     ].join("\n"),
   });
 }
@@ -67,14 +72,7 @@ async function sendSubmitterConfirmation(input: z.infer<typeof contactSchema>) {
   });
 }
 
-export async function submitContactAction(_prevState: ServerActionState, formData: FormData): Promise<ServerActionState> {
-  const input = {
-    name: String(formData.get("name") ?? ""),
-    email: String(formData.get("email") ?? ""),
-    phone: String(formData.get("phone") ?? ""),
-    message: String(formData.get("message") ?? ""),
-  };
-
+export async function submitContactAction(input: z.infer<typeof contactSchema>): Promise<ServerActionState> {
   const parsed = contactSchema.safeParse(input);
 
   if (!parsed.success) {

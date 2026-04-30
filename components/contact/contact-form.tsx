@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useActionState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { submitContactAction } from "@/app/(public)/contact/actions";
@@ -15,16 +15,14 @@ const schema = z.object({
   name: z.string().min(2, "Please enter your name."),
   email: z.string().email("Enter a valid email address."),
   phone: z.string().min(10, "Enter at least 10 digits."),
-  message: z.string().min(20, "Please share a bit more context."),
+  message: z.string(),
 });
 
 type FormValues = z.infer<typeof schema>;
 
 export function ContactForm() {
-  const [state, formAction, isPending] = useActionState<ServerActionState, FormData>(
-    submitContactAction,
-    { status: "idle" },
-  );
+  const [isPending, startTransition] = useTransition();
+  const [state, setState] = useState<ServerActionState>({ status: "idle" });
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -42,8 +40,15 @@ export function ContactForm() {
     }
   }, [form, state.status]);
 
+  const onSubmit = form.handleSubmit((values) => {
+    startTransition(async () => {
+      const result = await submitContactAction(values);
+      setState(result);
+    });
+  });
+
   return (
-    <form className="space-y-4" action={formAction}>
+    <form className="space-y-4" onSubmit={onSubmit}>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <label htmlFor="contact-name" className="text-sm font-medium">Name</label>
@@ -80,7 +85,6 @@ export function ContactForm() {
         <label htmlFor="contact-message" className="text-sm font-medium">Message</label>
         <Textarea
           id="contact-message"
-          required
           {...form.register("message")}
           placeholder="Tell us about your goals, which course you're interested in, or any questions you have..."
         />

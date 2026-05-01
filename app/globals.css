@@ -239,8 +239,8 @@ h1, h2, h3, h4 {
 
 .grid-pattern {
   background-image:
-    linear-gradient(rgba(7, 26, 51, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(7, 26, 51, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(7, 26, 51, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 26, 51, 0.15) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 

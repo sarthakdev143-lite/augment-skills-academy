@@ -97,7 +97,7 @@ export function ContactForm() {
         <p className={state.status === "error" ? "text-sm text-rose-400" : "text-sm text-emerald-400"}>{state.message}</p>
       ) : null}
 
-      <Button type="submit" disabled={isPending}>
+      <Button type="submit" disabled={isPending} className="shimmer-btn bg-accent px-5 py-5 text-[13px] font-black text-white">
         {isPending ? "Sending..." : "Send message"}
       </Button>
     </form>

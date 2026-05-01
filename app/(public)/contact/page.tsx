@@ -24,7 +24,11 @@ export default function ContactPage() {
               className="h-auto w-full rounded-3xl"
             />
           </div>
+        </div>
 
+        <Card className="rounded-4xl p-6">
+          <ContactForm />
+          
           <div className="mt-8 grid gap-4">
             {[
               "Course guidance - not sure which track is right for you?",
@@ -36,10 +40,7 @@ export default function ContactPage() {
               </Card>
             ))}
           </div>
-        </div>
 
-        <Card className="rounded-4xl p-6">
-          <ContactForm />
         </Card>
       </div>
     </main>

@@ -7,6 +7,7 @@ import { Reveal } from "@/components/reveal";
 import { Badge } from "@/components/ui/badge";
 import { academyFaqs, learningPillars, marketingStats, testimonials } from "@/lib/demo-data";
 import { listPublishedCourses } from "@/lib/courses";
+import ContactPage from "./contact/page";
 
 export const revalidate = 3600;
 
@@ -15,7 +16,7 @@ export default async function HomePage() {
   const featured = courses.filter((course) => course.featured).slice(0, 3);
 
   return (
-    <main className="max-w-7xl mx-auto px-2 sm:px-8 pb-10 sm:pb-20">
+    <><main className="max-w-7xl mx-auto px-2 sm:px-8 pb-10 sm:pb-20">
       <section className="page-shell relative pb-8 pt-8 sm:pt-10 md:pb-14 md:pt-20">
         <div className="ambient-ring blob -left-16 top-8 h-24 w-24 sm:h-32 sm:w-32 bg-accent/20" />
         <div className="ambient-ring blob-delay -right-8 top-28 h-28 w-28 sm:h-40 sm:w-28 bg-accent-2/18" />
@@ -65,8 +66,7 @@ export default async function HomePage() {
                 width={880}
                 height={760}
                 priority
-                className="h-auto w-full rounded-[26px]"
-              />
+                className="h-auto w-full rounded-[26px]" />
               <div className="mt-4 rounded-3xl sm:rounded-[28px] border border-white/12 bg-white/85 p-4 sm:p-5 shadow-[0_24px_48px_rgba(7,26,51,0.18)] backdrop-blur-xl md:p-6">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
                   <div>
@@ -137,8 +137,7 @@ export default async function HomePage() {
                 alt="Career support illustration showing resume review and placement readiness"
                 width={760}
                 height={520}
-                className="aspect-4/3 w-full rounded-[22px] object-cover object-top"
-              />
+                className="aspect-4/3 w-full rounded-[22px] object-cover object-top" />
             </div>
           </div>
         </div>
@@ -201,8 +200,7 @@ export default async function HomePage() {
                   alt="Platform mockup showing learner journey, mentor reviews, and placement readiness metrics"
                   width={920}
                   height={760}
-                  className="aspect-4/3 w-full rounded-[22px] object-cover object-top"
-                />
+                  className="aspect-4/3 w-full rounded-[22px] object-cover object-top" />
                 <div className="mt-4 inline-flex max-w-full rounded-full border border-accent/12 bg-background/90 px-4 py-2 text-sm font-semibold text-foreground shadow-[0_16px_34px_rgba(7,26,51,0.12)] backdrop-blur">
                   Dashboard + mentor workflow + placement pipeline
                 </div>
@@ -234,59 +232,58 @@ export default async function HomePage() {
 
       <section className="page-shell my-10">
         <div className="rounded-[40px] bg-[linear-gradient(180deg,#081a34_0%,#0d2546_100%)] px-5 sm:px-10 py-10 sm:py-14 text-white">
-        <Reveal>
-          <div className="mb-14">
-            <Badge className="bg-white/10 text-white hover:bg-white/20 border-white/10">Our Mentors</Badge>
-            <h2 className="mt-4 text-3xl sm:text-4xl font-black md:text-5xl text-white">Learn from industry professionals who've been there</h2>
-            <p className="mt-4 max-w-3xl text-lg text-white/70">
-              We partner with experienced engineers, product leads, and growth professionals who mentor you through structured paths. No celebrities - just people who do this work every day.
-            </p>
-          </div>
-        </Reveal>
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="grid gap-5 sm:gap-6 md:grid-cols-3 lg:grid-cols-1">
-            {[
-              {
-                icon: <Award size={22} />,
-                title: "Industry Veterans",
-                body: "Working professionals with 5-15 years in top product companies",
-              },
-              {
-                icon: <Briefcase size={22} />,
-                title: "Real-World Experience",
-                body: "Every mentor has shipped production systems used by thousands",
-              },
-              {
-                icon: <Shield size={22} />,
-                title: "Privacy Respected",
-                body: "Our mentors guide you behind the scenes - your growth is what's front and center",
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-3xl border border-white/10 bg-white/8 p-5 sm:p-7 backdrop-blur-sm">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-accent-2">{item.icon}</div>
-                <h3 className="text-xl font-black text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-white/68">{item.body}</p>
-              </div>
-            ))}
-          </div>
-          <Reveal delay={0.08}>
-            <div className="gradient-border-card overflow-hidden rounded-4xl p-4">
-              <div className="relative overflow-hidden rounded-[26px] bg-[linear-gradient(180deg,#edf6ff_0%,#d9edff_100%)] p-4">
-                <Image
-                  src="/mentor-network-illustration.svg"
-                  alt="Mentor network illustration representing guided cohort learning"
-                  width={760}
-                  height={640}
-                  className="aspect-4/3 w-full rounded-[22px] object-cover object-top"
-                />
-                <div className="absolute bottom-7 left-7 inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-background/85 px-4 py-2 text-sm font-semibold text-foreground shadow-[0_14px_40px_rgba(20,14,5,0.12)] backdrop-blur">
-                  Cohort guidance
-                  <ArrowUpRight size={14} className="text-accent" />
-                </div>
-              </div>
+          <Reveal>
+            <div className="mb-14">
+              <Badge className="bg-white/10 text-white hover:bg-white/20 border-white/10">Our Mentors</Badge>
+              <h2 className="mt-4 text-3xl sm:text-4xl font-black md:text-5xl text-white">Learn from industry professionals who've been there</h2>
+              <p className="mt-4 max-w-3xl text-lg text-white/70">
+                We partner with experienced engineers, product leads, and growth professionals who mentor you through structured paths. No celebrities - just people who do this work every day.
+              </p>
             </div>
           </Reveal>
-        </div>
+          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div className="grid gap-5 sm:gap-6 md:grid-cols-3 lg:grid-cols-1">
+              {[
+                {
+                  icon: <Award size={22} />,
+                  title: "Industry Veterans",
+                  body: "Working professionals with 5-15 years in top product companies",
+                },
+                {
+                  icon: <Briefcase size={22} />,
+                  title: "Real-World Experience",
+                  body: "Every mentor has shipped production systems used by thousands",
+                },
+                {
+                  icon: <Shield size={22} />,
+                  title: "Privacy Respected",
+                  body: "Our mentors guide you behind the scenes - your growth is what's front and center",
+                },
+              ].map((item) => (
+                <div key={item.title} className="rounded-3xl border border-white/10 bg-white/8 p-5 sm:p-7 backdrop-blur-sm">
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-accent-2">{item.icon}</div>
+                  <h3 className="text-xl font-black text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-white/68">{item.body}</p>
+                </div>
+              ))}
+            </div>
+            <Reveal delay={0.08}>
+              <div className="gradient-border-card overflow-hidden rounded-4xl p-4">
+                <div className="relative overflow-hidden rounded-[26px] bg-[linear-gradient(180deg,#edf6ff_0%,#d9edff_100%)] p-4">
+                  <Image
+                    src="/mentor-network-illustration.svg"
+                    alt="Mentor network illustration representing guided cohort learning"
+                    width={760}
+                    height={640}
+                    className="aspect-4/3 w-full rounded-[22px] object-cover object-top" />
+                  <div className="absolute bottom-7 left-7 inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-background/85 px-4 py-2 text-sm font-semibold text-foreground shadow-[0_14px_40px_rgba(20,14,5,0.12)] backdrop-blur">
+                    Cohort guidance
+                    <ArrowUpRight size={14} className="text-accent" />
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
@@ -326,8 +323,7 @@ export default async function HomePage() {
                     alt="Course catalog illustration"
                     width={720}
                     height={520}
-                    className="aspect-4/3 w-full rounded-[22px] object-cover object-top"
-                  />
+                    className="aspect-4/3 w-full rounded-[22px] object-cover object-top" />
                 </div>
                 <div className="flex flex-col gap-3">
                   <Link href="/courses" className="shimmer-btn inline-flex items-center justify-center rounded-full bg-accent px-5 sm:px-8 py-4.5 text-sm font-black text-white">
@@ -389,5 +385,8 @@ export default async function HomePage() {
         </div>
       </section>
     </main>
+      <ContactPage />
+    </>
+
   );
 }
